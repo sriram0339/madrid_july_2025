@@ -1,0 +1,56 @@
+---
+title: "Algebraic and Semi-Algebraic Reasoning in Formal Methods."
+author: "Sriram Sankaranarayanan"
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+    papersize: a4
+---
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+Proving properties of programs and cyber-physical systems requires us
+to reason about nonlinear arithmetic. In the 1920s Tarski developed an
+automated decision procedure that demonstrated decidability of the
+nonlinear arithmetic over reals and developed a quantifier elimination
+procedure. Later work by Collins made numerous algorithmic
+improvements. More recently, deeper connections have been discovered
+between the problem of proving algebraic and semi-algebraic properties
+of systems and areas such as convex optimization and measure
+theory.
+
+We will present some of these approaches and discuss their
+power when it comes to proving properties of programs and differential
+equations. Topics include:
+
+  * __Algebraic reasoning:__  Hilbert's nullstellensatz, Grobner bases and Application.
+  * __Semi-algebraic reasoning:__ Positive polynomials, Sum of Squares programming and alternatives.
+  * __Applications:__ Proving properties of programs and cyber-physical systems, control systems and robotics.
+:::
+
+::: {.column width="30%"}
+
+:::: {.columns}
+
+::: {.column width="15%"}
+
+![](tarski.jpeg){width="15%"} 
+
+:::
+
+::: {.column width="15%"}
+
+![](hilbert.jpeg){width="15%"}
+
+:::
+
+![Buchberger](Bruno_Buchberger.jpeg){width="30%"}
+
+:::
+
+::::
+

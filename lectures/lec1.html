@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="lec1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lec1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="lec1_files/libs/quarto-html/popper.min.js"></script>
+<script src="lec1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="lec1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lec1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="lec1_files/libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.43">
+
+  <meta name="author" content="Sriram Sankaranarayanan">
+  <title>Algebraic and Semi-Algebraic Reasoning For Formal Methods</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="lec1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="lec1_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="lec1_files/libs/revealjs/dist/theme/quarto-930ff2c627947ef0370a337d1a02600e.css">
+  <link href="lec1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="lec1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="lec1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="lec1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Algebraic and Semi-Algebraic Reasoning For Formal Methods</h1>
+  <p class="subtitle">Lecture 1 - Motivation and Introduction</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Sriram Sankaranarayanan 
+</div>
+</div>
+</div>
+
+</section>
+<section id="what-are-algebraic-and-semi-algebraic-methods" class="slide level2 center">
+<h2>What are Algebraic and Semi-Algebraic Methods?</h2>
+<ul>
+<li><strong>Algebraic:</strong> Reason about polynomials and their properties.</li>
+</ul>
+<p><span class="math display">\[ (\forall x, y \in \mathbb{R}) \quad x^2 + y^2 = 1 \ \land\ x = 1 \ \Rightarrow\  y = 0 \]</span></p>
+<ul>
+<li><strong>Semi-Algebraic:</strong> Reason about polynomial inequalities. <span class="math display">\[ (\forall x, y \in \mathbb{R}) \quad x^2 + y^2 \leq 1  \ \Rightarrow\  y \leq 1 \]</span></li>
+</ul>
+</section>
+<section id="why-do-we-need-them" class="slide level2 center">
+<h2>Why do we need them?</h2>
+<ul>
+<li>Reasoning about programs and cyber-physical systems.
+<ul>
+<li>Invariants: Safety properties</li>
+<li>Termination: Liveness properties</li>
+<li>Stability Properties</li>
+</ul></li>
+<li>Polynomials: useful class of functions.
+<ul>
+<li>Closed under addition, multiplication, and composition.</li>
+<li>Function approximation by polynomials.</li>
+<li>Reason about nonlinear systems.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-1-program-verification" class="slide level2 center">
+<h2>Example # 1 : Program Verification</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Integer division from Manna 1974</span></span>
+<span id="cb1-2"><a href=""></a><span class="kw">def</span> div(x1, x2):</span>
+<span id="cb1-3"><a href=""></a>  (y1, y2, y3, y4) <span class="op">=</span> (x1, x2, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1-4"><a href=""></a>  <span class="cf">while</span> y1 <span class="op">&gt;=</span> y2: <span class="co"># Inv: y2 - y3 * x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0</span></span>
+<span id="cb1-5"><a href=""></a>     (y2, y3) <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> y2, <span class="dv">2</span> <span class="op">*</span> y3)</span>
+<span id="cb1-6"><a href=""></a>  <span class="cf">while</span> <span class="va">True</span>: <span class="co"># Inv: y2 - y3 * x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0</span></span>
+<span id="cb1-7"><a href=""></a>     <span class="cf">if</span> y1 <span class="op">&gt;=</span> y2: </span>
+<span id="cb1-8"><a href=""></a>        (y1, y3) <span class="op">=</span> (y1 <span class="op">-</span> y2, y3 <span class="op">+</span> y4)</span>
+<span id="cb1-9"><a href=""></a>     <span class="cf">if</span> y3 <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb1-10"><a href=""></a>        <span class="cf">return</span> y4, y1 <span class="co"># Prove: x1 = y1 + x2 * y4</span></span>
+<span id="cb1-11"><a href=""></a>     (y2, y3) <span class="op">=</span> (y2 <span class="op">/</span> <span class="dv">2</span>, y3 <span class="op">/</span> <span class="dv">2</span>) <span class="co"># y2, y3 are  even, before division</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Goal:</strong> Prove <code>x1 = y1 + x2 * y4</code> holds upon termination.</p>
+</section>
+<section id="loop-invariants" class="slide level2 center">
+<h2>Loop invariants</h2>
+<ul>
+<li><strong>Loop Invariant:</strong> Assertion holds for each loop iteration.</li>
+<li><strong>Inductive Invariant:</strong>
+<ul>
+<li>Initial Condition: First time we reach loop head.</li>
+<li>Inductive: If it holds for one iteration, it holds for next iteration.</li>
+</ul></li>
+<li>Algebraic Invariants: <span class="math inline">\(p(\vec{x}) = 0\)</span> where <span class="math inline">\(p\)</span> is a polynomial.
+<ul>
+<li>Example: <span class="math inline">\(y_2 - y_3  x_2 = 0\ \land \ y_1 y_3 + y_2 y_4 − y_3 x_1 = 0\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="proving-a-loop-invariant" class="slide level2 smaller center">
+<h2>Proving a Loop Invariant</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="cf">while</span> <span class="va">True</span>: <span class="co"># Invariants: y2 - y3 * x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0</span></span>
+<span id="cb2-2"><a href=""></a>    <span class="cf">if</span> y1 <span class="op">&gt;=</span> y2: </span>
+<span id="cb2-3"><a href=""></a>      (y1, y3) <span class="op">=</span> (y1 <span class="op">-</span> y2, y3 <span class="op">+</span> y4)</span>
+<span id="cb2-4"><a href=""></a>    <span class="cf">if</span> y3 <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb2-5"><a href=""></a>      <span class="cf">return</span> y4, y1 <span class="co"># Prove: x1 = y1 + x2 * y4</span></span>
+<span id="cb2-6"><a href=""></a>    (y2, y3) <span class="op">=</span> (y2 <span class="op">/</span> <span class="dv">2</span>, y3 <span class="op">/</span> <span class="dv">2</span>) <span class="co"># y2, y3 are  even numbers before division</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="math display">\[
+\begin{array}{|c| c|}
+\hline
+\text{Loop Semantics (Transition Relation)} &amp; \text{Inductive Invariant} \\ \hline
+\begin{array}{l}
+\text{Initial:}\  \Theta[x_1, \ldots, y_4] \\
+\text{Loop Semantics:} \\
+\; \; \;\; \rho_1(x_1, \ldots, y_4, x_1', \ldots, y_4') \ \lor\ \\
+\; \;\;\; \rho_2(x_1, \ldots, y_4, x_1', \ldots, y_4') \\
+\end{array} &amp;
+\begin{array}{l}
+\text{Initial Condition }\\
+\;\;\;\; \Theta[x_1, \ldots, y_4] \models p = 0 \\
+\text{Inductive Conditions }\\
+\;\;\;\; p = 0 \land \rho_1 \models p' = 0 \\
+\;\;\;\; p = 0 \land \rho_2 \models p' = 0 \\
+\end{array}\\
+\hline
+\end{array}
+\]</span></p>
+<ul>
+<li>Proving entailments. <span class="math display">\[
+(p_1 = 0\ \land\ \cdots \land\ p_k = 0) \models p = 0
+\]</span></li>
+</ul>
+</section>
+<section id="abstractions-of-loops" class="slide level2 center">
+<h2>Abstractions of Loops</h2>
+<ul>
+<li>Remove details while preserving original system behaviors.
+<ul>
+<li>Can add more behaviors.</li>
+</ul></li>
+<li>Algebraic Abstractions:
+<ul>
+<li>Remove inequality comparisons.</li>
+<li>Abstract division operations (unless divisibility established).</li>
+<li><strong>Treat integer variables as reals</strong>.</li>
+<li>Ignore floating point errors.</li>
+<li>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="abstractions-continued" class="slide level2 center">
+<h2>Abstractions (Continued)</h2>
+<p>Original:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="cf">while</span> <span class="va">True</span>: <span class="co"># Invariants: y2 - y3*x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0</span></span>
+<span id="cb3-2"><a href=""></a>    <span class="cf">if</span> y1 <span class="op">&gt;=</span> y2: </span>
+<span id="cb3-3"><a href=""></a>      (y1, y3) <span class="op">=</span> (y1 <span class="op">-</span> y2, y3 <span class="op">+</span> y4)</span>
+<span id="cb3-4"><a href=""></a>    <span class="cf">if</span> y3 <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb3-5"><a href=""></a>      <span class="cf">return</span> y4, y1 <span class="co"># Prove: x1 = y1 + x2*y4</span></span>
+<span id="cb3-6"><a href=""></a>    (y2, y3) <span class="op">=</span> (y2 <span class="op">/</span> <span class="dv">2</span>, y3 <span class="op">/</span> <span class="dv">2</span>) <span class="co"># y2, y3 are  even numbers before division</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Abstracted Program:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="cf">while</span> <span class="va">True</span>: <span class="co"># Invariants: y2 - y3*x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0</span></span>
+<span id="cb4-2"><a href=""></a>    <span class="cf">if</span> <span class="op">*</span> : <span class="co"># y1 &gt;= y2 abstracted to nondeterministic choice</span></span>
+<span id="cb4-3"><a href=""></a>      (y1, y3) <span class="op">=</span> (y1 <span class="op">-</span> y2, y3 <span class="op">+</span> y4)</span>
+<span id="cb4-4"><a href=""></a>    <span class="cf">if</span> y3 <span class="op">==</span> <span class="dv">1</span>: </span>
+<span id="cb4-5"><a href=""></a>      <span class="cf">return</span> y4, y1 <span class="co"># Prove: x1 = y1 + x2*y4</span></span>
+<span id="cb4-6"><a href=""></a>    (y2, y3) <span class="op">=</span> (y2 <span class="op">/</span> <span class="dv">2</span>, y3 <span class="op">/</span> <span class="dv">2</span>) <span class="co"># Treat integer division as real division</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="algebraic-abstraction" class="slide level2 smaller center">
+<h2>Algebraic Abstraction</h2>
+<ul>
+<li><p>Program Variables: <span class="math inline">\((x_1, \ldots, x_n) \in \mathbb{R}^n\)</span>.</p></li>
+<li><p>Initial Condition:<br>
+<span class="math display">\[
+\Theta[\vec{x}]:\  ( p_1 = 0 \land \cdots \land p_k = 0) \,.
+\]</span></p></li>
+<li><p>Transition Relations: <span class="math display">\[
+\left\langle \ell, \rho[\vec{x}, \vec{x}'], \ell' \right\rangle
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\ell, \ell'\)</span> are pre-/post- program locations.</li>
+<li><span class="math inline">\(\rho[\vec{x}, \vec{x}']\)</span>: algebraic transition relation.</li>
+</ul></li>
+</ul>
+<p>Refs. [Manna+Pnueli’95; Sank.+Sipma+Manna’ POPL 2004]</p>
+</section>
+<section id="establishing-algebraic-invariants" class="slide level2 center">
+<h2>Establishing Algebraic Invariants</h2>
+<ul>
+<li><p><strong>Algebraic Invariants:</strong> <span class="math inline">\(p_\ell(x_1, \ldots, x_n) = 0\)</span> where <span class="math inline">\(p_\ell\)</span> is a polynomial at location <span class="math inline">\(\ell\)</span>.</p></li>
+<li><p><strong>Initial:</strong> <span class="math inline">\(\Theta \models p_{\ell_0} = 0\)</span>.</p></li>
+<li><p><strong>Inductive:</strong> <span class="math display">\[
+(p_\ell[\vec{x}] = 0)\ \land \rho[\vec{x}, \vec{x}'] \models (p_{m}[\vec{x}'] = 0)
+\]</span></p></li>
+</ul>
+</section>
+<section id="synthesis-of-algebraic-invariants" class="slide level2 center">
+<h2>Synthesis of Algebraic Invariants</h2>
+<ul>
+<li><p>Given a program (algebraic abstraction), find algebraic invariants.</p>
+<ul>
+<li>Bounded degree invariants.</li>
+<li>Loops with restricted structures.</li>
+</ul></li>
+<li><p><strong>Challenge:</strong> Can we compute all algebraic loop invariants?</p></li>
+</ul>
+</section>
+<section id="algebraic-invariant-synthesis" class="slide level2 center">
+<h2>Algebraic Invariant Synthesis</h2>
+<ul>
+<li><p>Well-explored problem with numerous approaches.</p></li>
+<li><p>Sank. + Sipma + Manna, POPL 2004:</p>
+<ul>
+<li>Constraint-based invariant synthesis.</li>
+</ul></li>
+<li><p>Deepak Kapur and Enric Carbonell, 2004:</p>
+<ul>
+<li>Abstract Interpretation over the space of Ideals.</li>
+<li>Widening operators over decreasing chains of ideals.</li>
+</ul></li>
+<li><p>Markus Mueller-Olm and Siedel, 2004:</p>
+<ul>
+<li>Backward relational abstract interpretation.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 center">
+
+<ul>
+<li>Trying to make it more efficient:
+<ul>
+<li>``Pseudo-Ideals’’: Michael Colon, 2004.</li>
+<li>Backwards abstract interpreatation: Cachera et al, 2012.</li>
+</ul></li>
+</ul>
+</section>
+<section id="strongest-algebraic-invariants" class="slide level2 center">
+<h2>Strongest Algebraic Invariants</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pseudocode number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href=""></a>  # initial condition on (x1, ..., xn) </span>
+<span id="cb5-2"><a href=""></a>  while (*)</span>
+<span id="cb5-3"><a href=""></a>     (x1,..., xn) := f(x1, ..., xn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Assume <span class="math inline">\(f\)</span> is linear or polynomial.</p>
+<p>Find the ``strongest polynomial invariant’’</p>
+<ul>
+<li>Result by Karr’1976 for linear invariants.</li>
+<li>Result for solvable mappings by Kapur and Carbonell’2007.
+<ul>
+<li>Extended by Laura Kovacs 2008.</li>
+</ul></li>
+<li>Skolem Hard for polynomial <span class="math inline">\(f\)</span> (Kovacs et al POPL’24).</li>
+</ul>
+</section>
+<section id="application-2-invariants-for-physical-systems" class="slide level2 center">
+<h2>Application # 2: Invariants for Physical Systems</h2>
+
+<img data-src="two-spring-mass-system.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><span class="math display">\[\begin{array}{l|l}
+\begin{array}{l}
+\dot{x}_1 = v_1 \\
+\dot{v}_1 = -k x_1 - \frac{k}{5} (x_1 - x_2)\\
+\dot{x}_2 = v_2 \\
+\dot{v}_2 = k (x_1 - x_2)
+\end{array} &amp; \;\;\;
+\begin{array}{l}
+x_1(0) = x_2(0) = 0 \\
+  v_1(0) = 1, \\
+   v_2(0) = -1
+   \end{array}
+\end{array}\]</span></p>
+</section>
+<section class="slide level2 center">
+
+<p>Prove: <span class="math display">\[ \begin{array}{c}
+576 + 1200 v_1^2 +625 v_1^4+ 2880v_1v_2+3000v_1^3 v_2+ 528v_2^2+4150v^2_1v^2 + \\
+1320 v_1v^3_2 + 121 v^4_2 −1860 k x_2^2+2750kv^2_1x_2^2 + 1600kv_1v_2x_2^2 + \\
+710 kv_2^2x_2^2+525k_2x^4_2 = 0
+\end{array}
+\]</span></p>
+<p>Cf. [Sank.+Sipma+Manna’HSCC 2004; Sank.’ HSCC 2010].</p>
+</section>
+<section id="differential-equations-and-first-integrals" class="slide level2 smaller center">
+<h2>Differential Equations and First Integrals</h2>
+<p><span class="math display">\[\frac{d \vec{x}}{dt} = f(\vec{x}, t) \]</span></p>
+<ul>
+<li><p>First integral is a quantity <span class="math inline">\(p(\vec{x})\)</span> such that <span class="math inline">\(\frac{dp}{dt} = 0\)</span>.</p>
+<ul>
+<li><span class="math inline">\(p(\vec{x}(t))=p(\vec{x}(0))\)</span> for all <span class="math inline">\(t\)</span>.</li>
+</ul></li>
+<li><p>Conservation laws and symmetries in physical systems.</p>
+<ul>
+<li>Conservation of energy, momentum, charge, angular momentum, …</li>
+</ul></li>
+<li><p><font color="red">Problem:</font> Given ODE, compute polynomial first integrals.</p>
+<ul>
+<li>M. J. Prelle and M. F. Singer (1981), Elementary first integrals of differential equations. In Proceedings of the fourth ACM symposium on Symbolic and algebraic computation (SYMSAC ’81). Association for Computing Machinery, New York, NY, USA, 30–35.</li>
+</ul></li>
+</ul>
+</section>
+<section id="proving-properties-of-hybrid-systems" class="slide level2 smaller center">
+<h2>Proving Properties of Hybrid Systems</h2>
+<ul>
+<li>Cyber-Physical Systems:
+<ul>
+<li>Physical dynamics controlled by a digital controller.</li>
+</ul></li>
+<li>Proving properties of hybrid systems involves reasoning about differential equations.
+<ul>
+<li>Algebraic and semi-algebraic tools.</li>
+</ul></li>
+<li>Selected references:
+<ul>
+<li>Ghorbal and Platzer: Characterizing Algebraic Invariants by Differential Radical Invariants, HSCC 2013,</li>
+<li>``Algebraic Model Checking’’ series of papers by Bud Mishra and Venkatesh Mysore.</li>
+</ul></li>
+</ul>
+</section>
+<section id="probabilistic-programming" class="slide level2 center">
+<h2>Probabilistic Programming</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="foundations-pp.jpeg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<ul>
+<li>Programs as models of probability distribution.</li>
+<li><strong>Applications</strong>
+<ul>
+<li>Differential Privacy.</li>
+<li>Fairness.</li>
+<li>Analysis of ML systems.</li>
+<li>Stochastic CPS.</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="probabilistic-programs" class="slide level2 center">
+<h2>Probabilistic Programs</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="kw">def</span> generate_v2(p): <span class="co"># p \in (0, 1)</span></span>
+<span id="cb6-2"><a href=""></a>  v1 <span class="op">=</span> flip(p)</span>
+<span id="cb6-3"><a href=""></a>  v2 <span class="op">=</span> flip(p)</span>
+<span id="cb6-4"><a href=""></a>  v3 <span class="op">=</span> flip(p)</span>
+<span id="cb6-5"><a href=""></a>  <span class="cf">if</span> v1 <span class="op">==</span> v2: </span>
+<span id="cb6-6"><a href=""></a>    <span class="cf">return</span> <span class="bu">int</span>(v3)</span>
+<span id="cb6-7"><a href=""></a>  <span class="cf">else</span>: </span>
+<span id="cb6-8"><a href=""></a>    <span class="cf">return</span>  <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Programs that can generate random values.
+<ul>
+<li>According to various distributions.</li>
+</ul></li>
+<li>Conditioning.</li>
+</ul>
+</div>
+</section>
+<section id="reasoning-about-probabilistic-loops" class="slide level2 smaller center">
+<h2>Reasoning about Probabilistic Loops</h2>
+<ul>
+<li>Probabilistic programs as stochastic systems:</li>
+</ul>
+<p><span class="math display">\[X_{t+1} = [\![P]\!] (X_t, W_t), \text{wherein}\ W_t \sim D\]</span></p>
+<ul>
+<li>Martingale theory: a probabilistic notion of a conserved quantity.</li>
+</ul>
+<p><span class="math display">\[\mathbb{E}(M_{t+1}\ |\ X_t) = M_t \]</span></p>
+<ul>
+<li><span class="math inline">\(M_t\)</span> can be seen as a function of the system state.
+<ul>
+<li><span class="math inline">\(M_t = [\![ e ]\!](X_t)\)</span>.</li>
+</ul></li>
+<li>Its expected value remains invariant.</li>
+<li>Concentration of measure inequality on Martingales.</li>
+</ul>
+<p>Cf. Aleks Chakarov and Sank.’ CAV 2013 and Sank.’ Chapter 2020.</p>
+</section>
+<section id="martingale-and-super-martingale-based-analysis" class="slide level2 center">
+<h2>Martingale and Super-Martingale Based Analysis</h2>
+<ul>
+<li>Original work on finite valued distributions:
+<ul>
+<li>McIver and Morgan, Abstraction, Refinement and Proof for Probabilistic Systems.</li>
+</ul></li>
+<li>Recent papers from
+<ul>
+<li>Joost-Pieter Katoen and co-workers.</li>
+<li>Krishnendu Chatterjee, Tom Henzinger et al.</li>
+</ul></li>
+</ul>
+</section>
+<section id="probabilistic-reasoning" class="slide level2 center">
+<h2>Probabilistic Reasoning</h2>
+<p>Program # 1:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="kw">def</span> generate_v1(p): <span class="co"># p is a parameter  in (0, 1)</span></span>
+<span id="cb7-2"><a href=""></a>  v1 <span class="op">=</span> flip(p) <span class="co"># True with prob. p and False w.p. 1-p</span></span>
+<span id="cb7-3"><a href=""></a>  v2 <span class="op">=</span> flip(p) <span class="co"># True with prob. p and False w.p. 1-p</span></span>
+<span id="cb7-4"><a href=""></a>  i <span class="op">=</span> <span class="bu">int</span>(v1) <span class="op">+</span> <span class="bu">int</span>(v2)</span>
+<span id="cb7-5"><a href=""></a>  <span class="cf">return</span> i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Program # 2 :</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="kw">def</span> generate_v2(p): <span class="co"># p \in (0, 1)</span></span>
+<span id="cb8-2"><a href=""></a>  v1 <span class="op">=</span> flip(p)</span>
+<span id="cb8-3"><a href=""></a>  v2 <span class="op">=</span> flip(p)</span>
+<span id="cb8-4"><a href=""></a>  v3 <span class="op">=</span> flip(p)</span>
+<span id="cb8-5"><a href=""></a>  <span class="cf">if</span> v1 <span class="op">==</span> v2: </span>
+<span id="cb8-6"><a href=""></a>    <span class="cf">return</span> <span class="bu">int</span>(v3)</span>
+<span id="cb8-7"><a href=""></a>  <span class="cf">else</span>: </span>
+<span id="cb8-8"><a href=""></a>    <span class="cf">return</span>  <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Observation Data:</strong> <span class="math inline">\((f_0, f_1, f_2)\)</span> fraction of <span class="math inline">\(0, 1\)</span> and <span class="math inline">\(2\)</span>.</p>
+<p>Which program is being used ?</p>
+</section>
+<section id="probabilistic-reasoning-continued" class="slide level2 smaller center">
+<h2>Probabilistic Reasoning (Continued)</h2>
+<p>Program # 1:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="kw">def</span> generate_v1(p): <span class="co"># p is a parameter that can take on any value in (0, 1)</span></span>
+<span id="cb9-2"><a href=""></a>  v1 <span class="op">=</span> flip(p) <span class="co"># True with prob. p and False w.p. 1-p</span></span>
+<span id="cb9-3"><a href=""></a>  v2 <span class="op">=</span> flip(p) <span class="co"># True with prob. p and False w.p. 1-p</span></span>
+<span id="cb9-4"><a href=""></a>  i <span class="op">=</span> <span class="bu">int</span>(v1) <span class="op">+</span> <span class="bu">int</span>(v2)</span>
+<span id="cb9-5"><a href=""></a>  <span class="cf">return</span> i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="math display">\[\begin{array}{l}
+q_0 = (1-p)^2,\ q_1 =  2 p(1-p),\ q_2 = p^2\,.
+\end{array}\]</span></p>
+<p>``Eliminiate’’ <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[ q_0 + q_1 + q_2 = 1,\ 4q_0 = (2 - q_1 - 2 q_2)^2\]</span></p>
+</section>
+<section id="probabilistic-reasoning-continued-1" class="slide level2 smaller center">
+<h2>Probabilistic Reasoning (Continued)</h2>
+<p>Program # 2 :</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="kw">def</span> generate_v2(p): <span class="co"># p \in (0, 1)</span></span>
+<span id="cb10-2"><a href=""></a>  v1 <span class="op">=</span> flip(p)</span>
+<span id="cb10-3"><a href=""></a>  v2 <span class="op">=</span> flip(p)</span>
+<span id="cb10-4"><a href=""></a>  v3 <span class="op">=</span> flip(p)</span>
+<span id="cb10-5"><a href=""></a>  <span class="cf">if</span> v1 <span class="op">==</span> v2: </span>
+<span id="cb10-6"><a href=""></a>    <span class="cf">return</span> <span class="bu">int</span>(v3)</span>
+<span id="cb10-7"><a href=""></a>  <span class="cf">else</span>: </span>
+<span id="cb10-8"><a href=""></a>    <span class="cf">return</span>  <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="math display">\[ q_0 = (1-p)( (1-p)^2 + p^2), q_1 = p((1-p)^2 + p^2) , q_2 = 2p(1-p)\]</span></p>
+<p>Eliminate <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[ q_0 + q_1 + q_2 = 1,\ (1- q_2)^2 q_2 = q_0 q_1 \]</span></p>
+</section>
+<section id="probabilistic-reasoning-1" class="slide level2 smaller center">
+<h2>Probabilistic Reasoning</h2>
+<p>Consider two different probabilistic programs that generate the same output:</p>
+<p>Program # 1: <span class="math display">\[4q_0 = (2 - q_1 - 2 q_2)^2\]</span></p>
+<p>Program # 2 : <span class="math display">\[ (1- q_2)^2 q_2 = q_0 q_1 \]</span></p>
+<p><strong>Observation Data:</strong> <span class="math inline">\((f_0, f_1, f_2)\)</span> fraction of occurrences of <span class="math inline">\(0, 1\)</span> and <span class="math inline">\(2\)</span>.</p>
+<p>Which program is being used ?</p>
+<ul>
+<li>Compare data against the two algebraic curves.</li>
+</ul>
+<p><strong>Reference:</strong> <a href="https://math.berkeley.edu/~bernd/owl.pdf">Lectures on Algebraic Statistics by Strumfels et al.</a></p>
+</section>
+<section id="algebraic-reasoning-summary" class="slide level2 center">
+<h2>Algebraic Reasoning (Summary)</h2>
+<ul>
+<li>Reason about polynomial equations.</li>
+<li>Invariant Synthesis for Program Loops.</li>
+<li>Conservation Laws for Differential Equations.
+<ul>
+<li>Hybrid System Analysis.</li>
+</ul></li>
+<li>Emerging Applications:
+<ul>
+<li>Variable Elimination in Scientific Models.</li>
+<li>Algebraic Statistics.</li>
+</ul></li>
+</ul>
+</section>
+<section id="semi-algebraic-reasoning" class="slide level2 center">
+<h2>Semi-Algebraic Reasoning</h2>
+</section>
+<section id="semi-algebraic-methods" class="slide level2 smaller center">
+<h2>Semi-Algebraic Methods</h2>
+<ul>
+<li><strong>Semi-Algebraic:</strong> Reason about polynomial inequalities. <span class="math display">\[ (\forall x, y \in \mathbb{R}) \quad x^2 + y^2 \leq 1  \ \land\ x + y \leq 0 \ \Rightarrow\  y \leq 1.423  \]</span></li>
+</ul>
+<p>Why?</p>
+<p><span class="math display">\[(1.423 - y) = \left( \begin{array}{c} 0.765134 \ \  (1-x^2-y^2)\ + \\
+0.4 \ \   (-x - y)\ + \\
+0.6574 - 0.6 x + 0.4 y + 0.765134 (x^2 + y^2)
+\end{array} \right)
+\]</span></p>
+</section>
+<section id="application-3-stability-analysis" class="slide level2 smaller center">
+<h2>Application # 3: Stability Analysis</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Aleksandr_Lyapunov.jpg" style="width:80.0%"></p>
+<figcaption>A. M. Lyapunov</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<p><img data-src="Airplane_axes.png" class="quarto-figure quarto-figure-center" style="width:60.0%" alt="Diagram showing the three axes of an airplane"> &nbsp; &nbsp; <img data-src="stability_phase_plot.png" class="quarto-figure quarto-figure-center" style="width:30.0%" alt="Phase plot"></p>
+<ul>
+<li>Prove that a system’s trajectories converge to a fixed point.</li>
+<li>Fundamental for control synthesis.</li>
+</ul>
+</div></div>
+</section>
+<section id="lyapunov-function" class="slide level2 center">
+<h2>Lyapunov Function</h2>
+<p>Find a function <span class="math inline">\(V(x)\)</span> such that:</p>
+<ul>
+<li>Positive Definite:</li>
+</ul>
+<p><span class="math display">\[ \forall x \in X \setminus \{ x^* \}, V(x) \geq 0 \,. \]</span></p>
+<ul>
+<li>Derivative Condition:</li>
+</ul>
+<p><span class="math display">\[ \forall x \in X \setminus \{ x^* \}, \nabla V(x) \cdot f(x) &lt; 0 \,.\]</span></p>
+<p>Require semi-algebraic reasoning.</p>
+</section>
+<section id="application-4-program-verification" class="slide level2 center">
+<h2>Application # 4: Program Verification</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># program to compute square root of a number</span></span>
+<span id="cb11-2"><a href=""></a><span class="kw">def</span> sqrt(x):</span>
+<span id="cb11-3"><a href=""></a>    <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb11-4"><a href=""></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Cannot compute square root of negative number"</span>)</span>
+<span id="cb11-5"><a href=""></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb11-6"><a href=""></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb11-7"><a href=""></a>    guess <span class="op">=</span> x <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb11-8"><a href=""></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb11-9"><a href=""></a>        new_guess <span class="op">=</span> (guess <span class="op">+</span> x <span class="op">/</span> guess) <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb11-10"><a href=""></a>        <span class="cf">if</span> <span class="bu">abs</span>(new_guess <span class="op">-</span> guess) <span class="op">&lt;</span> <span class="fl">1e-10</span>:  <span class="co"># Convergence condition</span></span>
+<span id="cb11-11"><a href=""></a>            <span class="cf">return</span> new_guess</span>
+<span id="cb11-12"><a href=""></a>        guess <span class="op">=</span> new_guess</span>
+<span id="cb11-13"><a href=""></a></span>
+<span id="cb11-14"><a href=""></a><span class="co"># polynomial inequality invariant: ?</span></span>
+<span id="cb11-15"><a href=""></a><span class="co"># termination: ? </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="other-applications" class="slide level2 center">
+<h2>Other Applications</h2>
+<ul>
+<li><p>Programs: Probabilistic reasoning.</p></li>
+<li><p>AI Systems: Reasoning about neural networks.</p></li>
+<li><p>Cyber-Physical Systems: Reachability and Safety Shielding.</p></li>
+<li><p>Robotics: Motion planning, Inverse kinematics, etc.</p></li>
+</ul>
+</section>
+<section id="structure-of-the-course" class="slide level2 smaller center">
+<h2>Structure of the Course</h2>
+<ul>
+<li>Algebraic Reasoning - Polynomial Equations.
+<ul>
+<li>Grobner Bases.</li>
+<li>Elimination Theory.</li>
+<li>Applications.</li>
+</ul></li>
+<li>Semi-Algebraic Reasoning - Polynomial Inequalities.
+<ul>
+<li>Positivstellensatz.</li>
+<li>Sum-Of-Squares.</li>
+<li>Semi-Definite Optimization.</li>
+<li>Applications.</li>
+</ul></li>
+</ul>
+</section>
+<section>
+<section id="polynomials-preliminary-notions" class="title-slide slide level1 center">
+<h1>Polynomials : Preliminary Notions</h1>
+
+</section>
+<section id="polynomials" class="slide level2 center">
+<h2>Polynomials</h2>
+<ul>
+<li><p><span class="math inline">\(p(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x  +a_0\)</span>.</p></li>
+<li><p>Coefficient Ring: <span class="math inline">\(R\)</span>.</p>
+<ul>
+<li><span class="math inline">\(a_0, \ldots, a_n \in R\)</span>.</li>
+<li>Examples: Complex <span class="math inline">\(\mathbb{C}\)</span>, Reals <span class="math inline">\(\mathbb{R}\)</span>, Integers <span class="math inline">\(\mathbb{Z}\)</span>.</li>
+</ul></li>
+<li><p>Polynomial Ring: <span class="math inline">\(R[x]\)</span>.</p></li>
+<li><p>Degree: <span class="math inline">\(\deg(p) = n\)</span> if <span class="math inline">\(a_n \neq 0\)</span>.</p></li>
+</ul>
+</section>
+<section id="multivariate-polynomials" class="slide level2 center">
+<h2>Multivariate Polynomials</h2>
+<p><span class="math display">\[ p(x_1, \ldots, x_n) = \sum_{\alpha \in \mathbb{N}^n} a_{\alpha} \underset{\text{monomial}}{\underbrace{\vec{x}^{\ \alpha}}} \]</span></p>
+<ul>
+<li><p>Multivariate Polynomial Ring: <span class="math inline">\(p(x_1, \ldots, x_n) \in R[x_1, \ldots, x_n]\)</span>.</p></li>
+<li><p>Degree of Multivariate Polynomial: <span class="math display">\[ \deg(p) = \max_{\{ \alpha\ |\ a_{\alpha} \not= 0 \}} \sum_{i=1}^n \alpha_i \]</span></p></li>
+</ul>
+</section>
+<section id="problems" class="slide level2 center">
+<h2>Problems</h2>
+<ul>
+<li><p>Entailment: <span class="math display">\[p_1(\vec{x} ) = 0\ \land\ \cdots\ \land\ p_m(\vec{x}) = 0\ \models\ p(\vec{x}) = 0\]</span></p></li>
+<li><p>Elimination: <span class="math display">\[(\exists\ \vec{y}) p_1(\vec{x}, \vec{y}) = 0\ \land\ \cdots \land\ p_m(\vec{x}, \vec{y}) = 0\]</span></p></li>
+<li><p>Finding a model: <span class="math display">\[p_1(\vec{x} ) = 0\ \land\ \cdots\ \land\ p_m(\vec{x}) = 0\]</span></p></li>
+</ul>
+</section></section>
+<section>
+<section id="reasoning-with-equalities" class="title-slide slide level1 center">
+<h1>Reasoning with Equalities</h1>
+
+</section>
+<section id="lagrangian-reasoning" class="slide level2 center">
+<h2>“Lagrangian” Reasoning</h2>
+<p>Proving properties about equations:</p>
+<p><span class="math display">\[
+\begin{array}{c}
+p = \lambda_1 p_1 + \cdots + \lambda_k p_k\\
+\hline
+\left( p_1 = 0\ \land\ \ldots\ \land\  p_k = 0 \right) \models p = 0 \\
+\end{array}
+\]</span></p>
+<p><span class="math inline">\(\lambda_1, \ldots, \lambda_k\)</span> are called <em>multipliers</em>.</p>
+<ul>
+<li>Constants, or functions over <span class="math inline">\(\vec{x}\)</span>.</li>
+</ul>
+</section>
+<section id="linear-equations" class="slide level2 center">
+<h2>Linear Equations</h2>
+<p><span class="math display">\[ \begin{array}{c}
+A_{11} x_1 + A_{12} x_2 + \cdots + A_{1n} x_n = 0 \\
+\ddots \\
+A_{m1} x_1 + A_{m2} x_2 + \cdots + A_{mn} x_n = 0\\[5pt]
+\hline
+a_1 x_1 + a_2 x_2 + \cdots + a_n x_n = 0
+\end{array}
+\]</span></p>
+</section>
+<section id="lagrangian-reasoning-example" class="slide level2 center">
+<h2>“Lagrangian” Reasoning (Example)</h2>
+<p><span class="math display">\[
+\begin{array}{rl}
+\; 2 x - 3 y + 4 z &amp; = 0 \ \land\ \\
+x - 2 y + 2 z &amp; = 0 \\
+\hline
+\Rightarrow
+y &amp; = 0
+\end{array}
+\]</span></p>
+<p>Here is the “proof”:</p>
+<p><span class="math display">\[  1 \times ( 2 x - 3 y + 4 z )  - 2 \times ( x - 2 y + 2 z ) = y \]</span></p>
+</section>
+<section id="lagrangian-reasoning-continued" class="slide level2 center">
+<h2>“Lagrangian” Reasoning (Continued)</h2>
+<p><span class="math display">\[ \mathbf{(A)}: \ \forall \vec{x} \in \mathbb{R}^n,\; A \vec{x} = 0 \models \vec{a} \cdot \vec{x} = 0\ ?
+\]</span></p>
+<p><span class="math display">\[ \mathbf{(B)}:\ (\exists\ \vec{\lambda} \in \mathbb{R}^m)\; A^t \vec{\lambda} = \vec{a}\ ?\]</span></p>
+<p><strong>Theorem:</strong> <strong>(A)</strong> if and only if <strong>(B)</strong> holds.</p>
+<p><strong>Proof:</strong> ??</p>
+</section>
+<section id="lagrangian-reasoning-continued-1" class="slide level2 smaller center">
+<h2>“Lagrangian” Reasoning (Continued)</h2>
+<p><span class="math display">\[ \mathbf{(A)}: \ \forall \vec{x} \in \mathbb{R}^n,\; A \vec{x} = 0 \models \vec{a} \cdot \vec{x} = 0\ ?
+\]</span></p>
+<p><span class="math display">\[ \mathbf{(B)}:\ (\exists\ \vec{\lambda} \in \mathbb{R}^m)\; A^t \vec{\lambda} = \vec{a}\ ?\]</span></p>
+<p><strong>Theorem:</strong> <strong>(A)</strong> if and only if <strong>(B)</strong> holds.</p>
+<p><strong>Proof Sketch:</strong> <span class="math inline">\(\Rightarrow\)</span> Consider the rank of the matrix <span class="math inline">\(\widehat{A} = \left[ \begin{array}{c} A\\ \vec{a}^t \\ \end{array} \right]\)</span>. <strong>(A)</strong> holds if and only if <span class="math inline">\(\mathsf{kernel}(A) = \mathsf{kernel}(\widehat{A})\)</span>. Therefore, <span class="math inline">\(\mathsf{rank}(\widehat{A}) = \mathsf{rank}(A)\)</span>. Thus, <span class="math inline">\(\vec{a}\)</span> can be expressed as a linear combination of the rows of <span class="math inline">\(A\)</span>.</p>
+<p><span class="math inline">\(\Leftarrow\)</span> Suppose (B) holds: <span class="math inline">\(A^t \vec{\lambda} = \vec{a}\)</span>. Let <span class="math inline">\(\vec{x}\)</span> be such that <span class="math inline">\(A \vec{x} = 0\)</span>. It holds that <span class="math inline">\(\vec{\lambda}^t A \vec{x} = 0\)</span>. Therefore, <span class="math inline">\(\vec{a}^t \vec{x} = 0\)</span>, or <span class="math inline">\(\vec{a} \cdot \vec{x} = 0\)</span>.</p>
+</section>
+<section id="reasoning-with-polynomials" class="slide level2 center">
+<h2>Reasoning with Polynomials</h2>
+<ul>
+<li>Prove:</li>
+</ul>
+<p><span class="math display">\[ (\forall x, y \in \mathbb{R}^2)\  x^2 + y^2 = 1 \land x  +  y = 0 \Rightarrow y^2 = \frac{1}{2} \]</span></p>
+<div class="fragment">
+<p>Can we use multipliers?</p>
+<p><span class="math display">\[ y^2 - \frac{1}{2} = (x^2 + y^2 -1 ) \times \lambda_1 + (x + y) \times \lambda_2 ?\]</span></p>
+</div>
+</section>
+<section id="reasoning-with-polynomials-1" class="slide level2 center">
+<h2>Reasoning with Polynomials</h2>
+<ul>
+<li><strong>Prove:</strong> <span class="math inline">\((\forall x, y \in \mathbb{R}^2)\  x^2 + y^2 = 1 \land x  +  y = 0 \Rightarrow y^2 = \frac{1}{2}\)</span></li>
+</ul>
+<p><span class="math display">\[ y^2 - \frac{1}{2} = (x^2 + y^2 -1 ) \times \lambda_1 + (x + y) \times \lambda_2 ?\]</span></p>
+<div class="fragment">
+<ul>
+<li><strong>Solution:</strong> Extend Lagrange multipliers to polynomials.</li>
+</ul>
+<p><span class="math display">\[ y^2 - \frac{1}{2}  = (x^2 + y^2 - 1) \times \underset{\lambda_1(x,y)}{\underbrace{\frac{1}{2}}} + (x + y) \times \underset{\lambda_2(x,y)}{\underbrace{\frac{(y -x )}{2}}}\,. \]</span></p>
+</div>
+</section>
+<section id="lagrangian-reasoning-questions" class="slide level2 center">
+<h2>Lagrangian Reasoning (Questions)</h2>
+<ul>
+<li>Clearly sound:</li>
+</ul>
+<p><span class="math display">\[\begin{array}{c}
+   p = \sum_{i=1}^m \lambda_i p_i\\
+  \Rightarrow\\
+  (p_1 = 0\ \land\ p_2 = 0\ \land\ \cdots\ \land\ p_m = 0)\ \models\ p= 0
+\end{array}\]</span></p>
+<ul>
+<li>Is the converse true?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Hilbert’s Nullstellensatz.</li>
+<li>Machinery to check: Groebner Bases.</li>
+</ul>
+</div>
+</section>
+<section id="lagrangian-reasoning-for-inequalities" class="slide level2 center">
+<h2>Lagrangian Reasoning for Inequalities</h2>
+<p><span class="math display">\[ \begin{array}{rcll}
+2 x - 3 y + 4 z &amp; \leq &amp; 5 &amp; \leftarrow e_1 \\
+3 x - 2 y + 0 z &amp; \leq &amp; 7 &amp; \leftarrow e_2\\
+              z &amp; \leq &amp; 3 &amp; \leftarrow e_3 \\    
+\hline
+&amp; &amp; (\Rightarrow) \\
+x - y + z &amp; \leq &amp; 3
+\\
+\end{array}\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[( x - y + z - 3) = \frac{1}{5} ( e_1 + e_2 + e_3 )\]</span></p>
+</div>
+</section>
+<section id="lagrangian-reasoning-continued-2" class="slide level2 center">
+<h2>Lagrangian Reasoning (Continued)</h2>
+<p><span class="math display">\[ \begin{array}{c}
+e \leq 0,\ \lambda \geq 0\\
+\hline
+\lambda \times e \leq 0 \\
+\end{array}\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[ \begin{array}{c}
+e_1 \leq 0,\ e_2 \leq 0\\
+\hline
+e_1 + e_2 \leq 0 \\
+\end{array}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ \begin{array}{c}
+\\
+\hline
+-1  \leq 0 \\
+\end{array}\]</span></p>
+</div>
+</section>
+<section id="conic-combination" class="slide level2 center">
+<h2>Conic Combination</h2>
+<p>Consider linear inequalities <span class="math display">\[e_1 \leq 0, \ldots, e_m \leq 0\]</span></p>
+<p>Conic combination:</p>
+<p><span class="math display">\[ -\lambda_0 + \lambda_1 e_1 + \cdots +  \lambda_m e_m \leq 0\]</span></p>
+<p>wherein <span class="math inline">\(\lambda_i \geq 0\)</span>.</p>
+</section>
+<section id="farkas-lemma" class="slide level2 center">
+<h2>Farkas’ Lemma</h2>
+<p><span class="math display">\[\varphi:\ e_1 \leq 0\ \land\ e_2 \leq 0\ \cdots\ \land\ e_m \leq 0\]</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\varphi\)</span> is unsatisfiable iff <span class="math inline">\(1 \leq 0\)</span> lies in conic combination.</li>
+<li>If <span class="math inline">\(\varphi\)</span> is satisfiable: <span class="math inline">\(\varphi \models e \leq 0\)</span> iff we can derive <span class="math inline">\(e \leq 0\)</span> as a conic combination.</li>
+<li>Foundations of linear programming and duality theory.
+<ul>
+<li>Reference: V. Chvatal’s amazing book on Linear Programming.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="farkas-lemma-in-formal-methods" class="slide level2 center">
+<h2>Farkas’ Lemma in Formal Methods</h2>
+<ul>
+<li>Vast literature on using Farkas’ Lemma for
+<ul>
+<li>Invariant Synthesis: Colon + Sank. + Sipma’ CAV 2003; Gulwani et al., Tiwari et al.,…</li>
+<li>Ranking Function Synthesis: Colon + Sipma, Podelski + Rybalchenko, Bradley + Manna, Cook + Rybalchenko + Podelski, …</li>
+<li>Cost analysis of programs</li>
+<li>Analysis of probabilistic programs</li>
+<li>Proof production in linear arithmetic SMT solver: [Reynolds+Tinelli]</li>
+</ul></li>
+</ul>
+</section>
+<section id="beyond-farkas-lemma" class="slide level2 center">
+<h2>Beyond Farkas Lemma</h2>
+<p>Proving entailment with polynomials:</p>
+<p><span class="math display">\[p_1 \leq 0, \cdots, p_m \leq 0\ \models\ p \leq 0 \]</span></p>
+<p><em>Positivstellensatz:</em></p>
+<p><span class="math display">\[ p = -\sigma_0 + \sigma_1 p_1 + \cdots + \sigma_m p_m \]</span> where <span class="math inline">\(\sigma_i\)</span> are <em>positive polynomials</em>.</p>
+</section>
+<section id="next-time" class="slide level2 center">
+<h2>Next Time</h2>
+<p>Groebner Bases</p>
+<ul>
+<li>The ``swiss army knife’’ of computational algebraic geometry.</li>
+</ul>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="lec1_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="lec1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="lec1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="lec1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
