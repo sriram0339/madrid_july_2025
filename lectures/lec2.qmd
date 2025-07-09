@@ -479,12 +479,14 @@ $$f \xrightarrow{g_i} f'$$
 - $f' = f - \frac{LT(f)}{LT(g_i)}\  g_i$
 - Gets rid of $LT(f)$.
 
-:::{.fragment .incremental}
+:::{.fragment .incremental .smaller}
 
 $f:\ \color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x$
 
  - $f \xrightarrow{ x^2 + 3y} (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2y (x^2 + 3y ) = 4xy - 2x$.
- - $f \xrightarrow{y - 2} (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y - 2) = 4x^2 + 6 y^2 + 4 xy - 2x$ 
+ - $\begin{array}{rl}
+ f \xrightarrow{y - 2} & (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y - 2)\\
+ &  = 4x^2 + 6 y^2 + 4 xy - 2x\end{array}$ 
 :::
 
 ## Rewriting System 
@@ -506,7 +508,7 @@ Polynomial division: $f$ with $g_1, \ldots, g_m$.
 - It depends on the order in which we divide.
 
 
-## Multivariate Division (cont.)
+## Multivariate Division (cont.) {.smaller}
 
 Divide $f$ by $g_1, \ldots, g_m$ (in $K[x_1, \ldots, x_n]$): 
   
