@@ -251,11 +251,14 @@ Sriram Sankaranarayanan
 </ul>
 </blockquote>
 </section>
-<section id="algebraic-variety-for-ideal" class="slide level2 center">
-<h2>Algebraic Variety for Ideal</h2>
+<section id="algebraic-variety" class="slide level2 center">
+<h2>Algebraic Variety</h2>
 <p><span class="math display">\[\newcommand\Var{\mathsf{Var}}
-\newcommand\Id{\mathsf{Id}}\]</span> A variety <span class="math inline">\(\Var(L) \subseteq R^n\)</span> corresponding to <span class="math inline">\(L \subseteq R[x_1, \ldots, x_n]\)</span></p>
-<p><span class="math display">\[\Var(I)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in L,\ p(x_1, \ldots, x_n) = 0 \}\]</span></p>
+\newcommand\Id{\mathsf{Id}}\]</span></p>
+<ul>
+<li><p><span class="math inline">\(L \subseteq R[x_1, \ldots, x_n]\)</span></p></li>
+<li><p>Variety <span class="math inline">\(\Var(L) \subseteq R^n\)</span> <span class="math display">\[\Var(L)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in L,\ p(x_1, \ldots, x_n) = 0 \}\]</span></p></li>
+</ul>
 <div class="fragment">
 <p>Eg., Let <span class="math inline">\(L = \{ p_1, p_2 \} \subseteq \mathbb{R}[x_1, x_2]\)</span>:</p>
 <p><span class="math display">\[\Var(I) = \{ (x_1, x_2) \in \mathbb{R}^2\ |\  p_1(x_1, x_2) = p_2(x_1, x_2) = 0 \,.\}\]</span></p>
@@ -517,7 +520,7 @@ J \subseteq \Id(V) \ \Leftrightarrow\ V \subseteq \Var(J)
 <li>Fix a rank among variables <span class="math inline">\(x_1 &gt; x_2 &gt; \cdots &gt; x_n\)</span>.</li>
 <li>Write each monomial as a vector <span class="math inline">\((\alpha_1, \ldots, \alpha_n) \in \mathbb{N}^n\)</span>.
 <ul>
-<li>Assume variables arranged in decreasing rank.</li>
+<li>Variables arranged in decreasing rank.</li>
 </ul></li>
 <li>Use lexicographic comparison: <span class="math display">\[(\vec{\alpha} \prec \vec{\beta}) \ \mathsf{iff}\ \alpha_1 = \beta_1, \cdots, \alpha_{i-1} = \beta_{i-1}, \ \alpha_i &lt; \beta_i \]</span></li>
 </ul>
@@ -541,18 +544,18 @@ J \subseteq \Id(V) \ \Leftrightarrow\ V \subseteq \Var(J)
 <li class="fragment">Either <span class="math inline">\(| \vec{\alpha} |_1 &lt; | \vec{\beta} |_1\)</span>, OR</li>
 <li class="fragment"><span class="math inline">\(|\vec{\alpha}|_1 = | \vec{\beta}|_1 \ \land\ \vec\alpha \prec_{\text{lex}} \vec\beta\)</span>.</li>
 </ul>
+</div>
 <div class="fragment">
 <blockquote>
 
 <ul>
-<li class="fragment">Take <span class="math inline">\(x &gt; y\)</span>.</li>
-<li class="fragment"><span class="math inline">\(x^2 y^{10} \prec x y^{15}\)</span></li>
-<li class="fragment"><span class="math inline">\(x y^2 \prec x y^4\)</span></li>
-<li class="fragment"><span class="math inline">\(y^3 \prec x y^2 \prec x^2 y  \prec x^3\)</span></li>
+<li>Take <span class="math inline">\(x &gt; y\)</span>.</li>
+<li><span class="math inline">\(x^2 y^{10} \prec x y^{15}\)</span></li>
+<li><span class="math inline">\(x y^2 \prec x y^4\)</span></li>
+<li><span class="math inline">\(y^3 \prec x y^2 \prec x^2 y  \prec x^3\)</span></li>
 </ul>
 
 </blockquote>
-</div>
 </div>
 </section>
 <section id="leading-term-and-monomial" class="slide level2 smaller center">
@@ -1033,7 +1036,7 @@ J \subseteq \Id(V) \ \Leftrightarrow\ V \subseteq \Var(J)
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'pdfSeparateFragments': false,
+'pdfSeparateFragments': true,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,

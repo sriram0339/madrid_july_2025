@@ -9,6 +9,7 @@ format:
     transition: slide
     incremental: false
     slide-number: c/t
+    pdf-separate-fragments: true
     html-math-method:
         method: mathjax
 
@@ -70,12 +71,14 @@ $$ I = \left\langle p_1:\ x_1 - x_2, p_2: x_1^2 \right\rangle $$
 >  - A few polynomials that belong to this ideal and
 >  - A few that do not. 
 
-## Algebraic Variety for Ideal
+## Algebraic Variety 
 $$\newcommand\Var{\mathsf{Var}}
 \newcommand\Id{\mathsf{Id}}$$
-A variety $\Var(L) \subseteq R^n$ corresponding to $L \subseteq R[x_1, \ldots, x_n]$
 
-$$\Var(I)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in L,\ p(x_1, \ldots, x_n) = 0 \}$$
+- $L \subseteq R[x_1, \ldots, x_n]$
+
+- Variety $\Var(L) \subseteq R^n$
+$$\Var(L)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in L,\ p(x_1, \ldots, x_n) = 0 \}$$
 
 :::{.fragment}
 
@@ -366,17 +369,14 @@ $$\vec{x}^{\alpha_1} \prec \vec{x}^{\alpha_2}\ \Rightarrow\ \alpha_1 \prec \alph
 
 - Fix a rank among variables $x_1 > x_2 > \cdots > x_n$.
 - Write each monomial as a vector $(\alpha_1, \ldots, \alpha_n) \in \mathbb{N}^n$.
-   - Assume variables arranged in decreasing rank.
+   - Variables arranged in decreasing rank.
 - Use lexicographic comparison:
 $$(\vec{\alpha} \prec \vec{\beta}) \ \mathsf{iff}\ \alpha_1 = \beta_1, \cdots, \alpha_{i-1} = \beta_{i-1}, \ \alpha_i < \beta_i $$
 
 :::{.fragment}
-
 > - Take $x > y$.
 > - $x y^{100} \prec x^2 y^{10}$
 > - $x y^2 \prec x y^4$
-
-
 :::
 
 ## Graded Lexicographic Ordering 
@@ -386,7 +386,7 @@ $$\vec{\alpha} \prec \vec{\beta}\ \mathsf{iff}\ $$
 :::{.incremental}
  - Either $| \vec{\alpha} |_1 < | \vec{\beta} |_1$, OR
  - $|\vec{\alpha}|_1 = | \vec{\beta}|_1 \ \land\ \vec\alpha \prec_{\text{lex}} \vec\beta$.
-
+:::
 
 :::{.fragment}
 
@@ -394,8 +394,6 @@ $$\vec{\alpha} \prec \vec{\beta}\ \mathsf{iff}\ $$
 > - $x^2 y^{10} \prec x y^{15}$
 > - $x y^2 \prec x y^4$
 > - $y^3 \prec x y^2 \prec x^2 y  \prec x^3$
-
-:::
 
 :::
 
