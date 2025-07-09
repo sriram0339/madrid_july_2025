@@ -13,6 +13,15 @@ format:
         method: mathjax
 
 ---
+## Git Repo
+
+<https://github.com/sriram0339/madrid_july_2025.git>
+
+## Book 
+
+![](figures/ideals_varieties_algorithms.webp){width=30% fig-align="center"}
+
+
 ## Introduction 
 
 - System of polynomial equations: $p_i \in R[x_1, \ldots, x_n]$:
@@ -21,12 +30,12 @@ format:
 :::{.fragment}
 
 - __Question 1:__  Check entailment.
-
 $$ p_1 = 0 \ \land\ \cdots \ \land p_m  = 0 \ \models\ p = 0 $$
 
 - __Question 2:__ Quantifier elimination.
-
 $$ (\exists x_i)\ p_1 = 0\ \land\ p_2 = 0 \ \land\ \cdots \ \land p_m = 0 $$
+
+- _Other Questions:_ That we do not yet know to ask!! 
 
 :::
 
@@ -62,18 +71,18 @@ $$ I = \left\langle p_1:\ x_1 - x_2, p_2: x_1^2 \right\rangle $$
 >  - A few that do not. 
 
 ## Algebraic Variety for Ideal
+$$\newcommand\Var{\mathsf{Var}}
+\newcommand\Id{\mathsf{Id}}$$
+A variety $\Var(L) \subseteq R^n$ corresponding to $L \subseteq R[x_1, \ldots, x_n]$
 
-A variety $V(I) \subseteq R^n$ corresponding to an ideal $I$ is the set
-
-$$ V(I)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in I,\ p(x_1, \ldots, x_n) = 0 \}$$
+$$\Var(I)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in L,\ p(x_1, \ldots, x_n) = 0 \}$$
 
 :::{.fragment}
 
-Eg.,  Let $I = \langle p_1, p_2 \rangle \subseteq k[x_1, x_2]$:
+Eg.,  Let $L = \{ p_1, p_2 \} \subseteq \mathbb{R}[x_1, x_2]$:
 
-$$V(I) = \{ (x_1, x_2) \in \mathbb{R}^2\ |\  p_1(x_1, x_2) = p_2(x_1, x_2) = 0 \,.\}$$
-  
-   - If $p_1 = p_2 = 0$ then $g_1 p_1 + g_2 p_2 = 0$.
+$$\Var(I) = \{ (x_1, x_2) \in \mathbb{R}^2\ |\  p_1(x_1, x_2) = p_2(x_1, x_2) = 0 \,.\}$$
+
 :::
 
 ## Variety (Examples)
@@ -95,28 +104,30 @@ Set of all $n \times n$ matrices $G$ such that $\mathsf{det}(G) = 1$.
 :::
 
 ## Ideal and Varieties Relation
-
-- For every ideal $I$, we can define a variety. 
-$$ V(I) = \{ \vec{x}\ |\ \forall\ p \in I,\ p(\vec{x}) = 0 \}\,.$$ 
+- Let us fix an algebraically closed field $K$.
+  - Polynomial ring $K[x_1, \ldots, x_n]$
+- Let $L \subseteq K[\vec{x}]$. 
+$$ \Var(L) = \{ \vec{x} \in K^n\ |\ \forall\ p \in L,\ p(\vec{x}) = 0 \}\,.$$ 
 
 :::{.fragment}
-
-Ideal corresponding to a set of points $S$. 
-
-- Let $S \subseteq R^n$.
-- $I(S) = \{ p \in R[x_1, \ldots, x_n]\ |\ \forall \vec{y} \in S, p(\vec{y}) = 0\}\,.$
+- Let $S \subseteq K^n$.
+- $\Id(S) = \{ p \in K[x_1, \ldots, x_n]\ |\ \forall \vec{y} \in S, p(\vec{y}) = 0\}\,.$
 
 :::
 
 :::{.fragment}
-- $V(I(S))$ is the smallest variety $V$ containing $S$. 
+- $\Var(\Id(S))$ is the smallest variety $V$ containing $S$. 
+
+- $\Id(\Var(J))$ is  called the _radical ideal_ of $J$.
+
 :::
+
 
 ## Example
 
 ::::{.columns}
 :::{.column width="50%"}
-![](Quarter_circle.png){width="100%"}
+![](figures/Quarter_circle.png){width="100%"}
 
 $$ S = \left\{ (x, y)\ |\ \begin{array}{c}
 x = \cos(\theta), \\ 
@@ -126,11 +137,23 @@ y = \sin(\theta), \\
 :::
 :::{.column width="50%"}
 
-$$I(S) = \langle x^2 + y^2 - 1 \rangle $$
+$$\Id(S) = \langle x^2 + y^2 - 1 \rangle $$
 
-$$V(I(S)) = \{ (x, y)\ |\ x^2 + y^2 = 1 \}$$
+$$\Var(\Id(S)) = \{ (x, y)\ |\ x^2 + y^2 = 1 \}$$
 :::
 ::::
+
+## Galois Connection 
+
+:::{.incremental}
+ - Lattice of ideals: $(\mathcal{I}, \subseteq)$.
+ - Lattice of varieties: $(\mathcal{V}, \subseteq)$.
+ - $\Var: \mathcal{I} \to \mathcal{V}$, and $\Id: \mathcal{V} \to \mathcal{I}$.
+ - Galois connection: $J \in \mathcal{I},\ V \in \mathcal{V}$.
+   $$ \begin{array}{c}
+   J \subseteq \Id(V) \ \Leftrightarrow\ V \subseteq \Var(J)
+   \end{array} $$ 
+:::
 
 ## Ideal : Properties 
 
@@ -157,9 +180,10 @@ $$V(I(S)) = \{ (x, y)\ |\ x^2 + y^2 = 1 \}$$
 
  - Unions/Intersections of finitely many algebraic varieties is an algebraic variety.
 
- - Projection of an algebraic variety over a subset of variables is an algebraic variety.
+ - Projection of an algebraic variety over a subset of variables is an algebraic variety?
+   - Consider the projection of $\{ (x, y)\ |\ xy = 1\}$.
 
-- What can we say about algebraic varieties in $\mathbb{R}$?
+ - Exercise: Characterize all subsets of the real line $\mathbb{R}$ that are algebraic varieties. 
 :::
 
 
@@ -172,10 +196,10 @@ $$ I = \langle p_1, \ldots, p_k \rangle = \{ p_1 \lambda_1 + \cdots + p_k \lambd
 
 :::{.fragment .incremental}
 
-- __Ideal membership and entailment?__
+__Ideal membership and entailment?__
 
 - __(A):__ $p_1 = 0\ \land\ p_2 = 0\ \land\ \cdots \land\ p_k = 0  \ \models\ p = 0$
-- __(B):__ $p \in \langle p_1, \ldots, p_k \rangle$
+- __(B):__ $p \in \left\langle p_1, \ldots, p_k \right\rangle$
 
 - What (if any) is the connection between __(A)__ and __(B)__?
 
@@ -210,7 +234,7 @@ $$ x \not\in \left\langle x^2 + y^2 - 1, y - 1 \right\rangle \leftarrow\ \text{w
 
 :::{.fragment}
 - __Problem \# 2__: Algebraic Closure. 
-$$ (\forall x, y \in \mathbb{R}^2)\ (\forall p \in \mathbb{R}[x, y]),\; ( 1 + x^2 = 0) \ \models\  p(x,y)= 0\,. $$
+$$ (\forall x, y \in \mathbb{R}^2)\ \; ( 1 + x^2 = 0) \ \Rightarrow\  x^2 - y^2 + 2 y + x - 7 = 0\,. $$
 :::
  
 
@@ -257,12 +281,6 @@ However, $I = \langle x^2 + 1 \rangle \not= \mathbb{R}[x,y]$.
 ## Coefficient Field
 
 The field matters!!
-
-__Theorem:__ It is undecidable to check if
-
-$$ (\forall \vec{x} \in \mathbb{Q}^n)\; p_1 (\vec{x}) = 0 \cdots \land p_m(\vec{x}) = 0\ \models\ p (\vec{x}) = 0 $$ 
-
-wherein $p, p_1, \ldots, p_m \in \mathbb{Q}[\vec{x}]$.
 
  
 :::{.fragment .incremental}

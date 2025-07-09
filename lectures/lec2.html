@@ -204,6 +204,14 @@ Sriram Sankaranarayanan
 </div>
 
 </section>
+<section id="git-repo" class="slide level2 center">
+<h2>Git Repo</h2>
+<p><a href="https://github.com/sriram0339/madrid_july_2025.git" class="uri">https://github.com/sriram0339/madrid_july_2025.git</a></p>
+</section>
+<section id="book" class="slide level2 center">
+<h2>Book</h2>
+
+<img data-src="figures/ideals_varieties_algorithms.webp" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"></section>
 <section id="introduction" class="slide level2 center">
 <h2>Introduction</h2>
 <ul>
@@ -211,13 +219,10 @@ Sriram Sankaranarayanan
 </ul>
 <div class="fragment">
 <ul>
-<li><strong>Question 1:</strong> Check entailment.</li>
+<li><p><strong>Question 1:</strong> Check entailment. <span class="math display">\[ p_1 = 0 \ \land\ \cdots \ \land p_m  = 0 \ \models\ p = 0 \]</span></p></li>
+<li><p><strong>Question 2:</strong> Quantifier elimination. <span class="math display">\[ (\exists x_i)\ p_1 = 0\ \land\ p_2 = 0 \ \land\ \cdots \ \land p_m = 0 \]</span></p></li>
+<li><p><em>Other Questions:</em> That we do not yet know to ask!!</p></li>
 </ul>
-<p><span class="math display">\[ p_1 = 0 \ \land\ \cdots \ \land p_m  = 0 \ \models\ p = 0 \]</span></p>
-<ul>
-<li><strong>Question 2:</strong> Quantifier elimination.</li>
-</ul>
-<p><span class="math display">\[ (\exists x_i)\ p_1 = 0\ \land\ p_2 = 0 \ \land\ \cdots \ \land p_m = 0 \]</span></p>
 </div>
 </section>
 <section id="polynomial-ideals" class="slide level2 center">
@@ -248,14 +253,12 @@ Sriram Sankaranarayanan
 </section>
 <section id="algebraic-variety-for-ideal" class="slide level2 center">
 <h2>Algebraic Variety for Ideal</h2>
-<p>A variety <span class="math inline">\(V(I) \subseteq R^n\)</span> corresponding to an ideal <span class="math inline">\(I\)</span> is the set</p>
-<p><span class="math display">\[ V(I)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in I,\ p(x_1, \ldots, x_n) = 0 \}\]</span></p>
+<p><span class="math display">\[\newcommand\Var{\mathsf{Var}}
+\newcommand\Id{\mathsf{Id}}\]</span> A variety <span class="math inline">\(\Var(L) \subseteq R^n\)</span> corresponding to <span class="math inline">\(L \subseteq R[x_1, \ldots, x_n]\)</span></p>
+<p><span class="math display">\[\Var(I)= \{ (x_1, \ldots, x_n)\ |\ \forall\ p \in L,\ p(x_1, \ldots, x_n) = 0 \}\]</span></p>
 <div class="fragment">
-<p>Eg., Let <span class="math inline">\(I = \langle p_1, p_2 \rangle \subseteq k[x_1, x_2]\)</span>:</p>
-<p><span class="math display">\[V(I) = \{ (x_1, x_2) \in \mathbb{R}^2\ |\  p_1(x_1, x_2) = p_2(x_1, x_2) = 0 \,.\}\]</span></p>
-<ul>
-<li>If <span class="math inline">\(p_1 = p_2 = 0\)</span> then <span class="math inline">\(g_1 p_1 + g_2 p_2 = 0\)</span>.</li>
-</ul>
+<p>Eg., Let <span class="math inline">\(L = \{ p_1, p_2 \} \subseteq \mathbb{R}[x_1, x_2]\)</span>:</p>
+<p><span class="math display">\[\Var(I) = \{ (x_1, x_2) \in \mathbb{R}^2\ |\  p_1(x_1, x_2) = p_2(x_1, x_2) = 0 \,.\}\]</span></p>
 </div>
 </section>
 <section id="variety-examples" class="slide level2 center">
@@ -276,18 +279,22 @@ Sriram Sankaranarayanan
 <section id="ideal-and-varieties-relation" class="slide level2 center">
 <h2>Ideal and Varieties Relation</h2>
 <ul>
-<li>For every ideal <span class="math inline">\(I\)</span>, we can define a variety. <span class="math display">\[ V(I) = \{ \vec{x}\ |\ \forall\ p \in I,\ p(\vec{x}) = 0 \}\,.\]</span></li>
+<li>Let us fix an algebraically closed field <span class="math inline">\(K\)</span>.
+<ul>
+<li>Polynomial ring <span class="math inline">\(K[x_1, \ldots, x_n]\)</span></li>
+</ul></li>
+<li>Let <span class="math inline">\(L \subseteq K[\vec{x}]\)</span>. <span class="math display">\[ \Var(L) = \{ \vec{x} \in K^n\ |\ \forall\ p \in L,\ p(\vec{x}) = 0 \}\,.\]</span></li>
 </ul>
 <div class="fragment">
-<p>Ideal corresponding to a set of points <span class="math inline">\(S\)</span>.</p>
 <ul>
-<li>Let <span class="math inline">\(S \subseteq R^n\)</span>.</li>
-<li><span class="math inline">\(I(S) = \{ p \in R[x_1, \ldots, x_n]\ |\ \forall \vec{y} \in S, p(\vec{y}) = 0\}\,.\)</span></li>
+<li>Let <span class="math inline">\(S \subseteq K^n\)</span>.</li>
+<li><span class="math inline">\(\Id(S) = \{ p \in K[x_1, \ldots, x_n]\ |\ \forall \vec{y} \in S, p(\vec{y}) = 0\}\,.\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(V(I(S))\)</span> is the smallest variety <span class="math inline">\(V\)</span> containing <span class="math inline">\(S\)</span>.</li>
+<li><p><span class="math inline">\(\Var(\Id(S))\)</span> is the smallest variety <span class="math inline">\(V\)</span> containing <span class="math inline">\(S\)</span>.</p></li>
+<li><p><span class="math inline">\(\Id(\Var(J))\)</span> is called the <em>radical ideal</em> of <span class="math inline">\(J\)</span>.</p></li>
 </ul>
 </div>
 </section>
@@ -295,16 +302,29 @@ Sriram Sankaranarayanan
 <h2>Example</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="Quarter_circle.png" style="width:100.0%"></p>
+<p><img data-src="figures/Quarter_circle.png" style="width:100.0%"></p>
 <p><span class="math display">\[ S = \left\{ (x, y)\ |\ \begin{array}{c}
 x = \cos(\theta), \\
 y = \sin(\theta), \\
 \theta \in [\frac{\pi}{4},  \frac{3\pi}{4}]
 \end{array}  \right\} \,.\]</span></p>
 </div><div class="column" style="width:50%;">
-<p><span class="math display">\[I(S) = \langle x^2 + y^2 - 1 \rangle \]</span></p>
-<p><span class="math display">\[V(I(S)) = \{ (x, y)\ |\ x^2 + y^2 = 1 \}\]</span></p>
+<p><span class="math display">\[\Id(S) = \langle x^2 + y^2 - 1 \rangle \]</span></p>
+<p><span class="math display">\[\Var(\Id(S)) = \{ (x, y)\ |\ x^2 + y^2 = 1 \}\]</span></p>
 </div></div>
+</section>
+<section id="galois-connection" class="slide level2 center">
+<h2>Galois Connection</h2>
+<div>
+<ul>
+<li class="fragment">Lattice of ideals: <span class="math inline">\((\mathcal{I}, \subseteq)\)</span>.</li>
+<li class="fragment">Lattice of varieties: <span class="math inline">\((\mathcal{V}, \subseteq)\)</span>.</li>
+<li class="fragment"><span class="math inline">\(\Var: \mathcal{I} \to \mathcal{V}\)</span>, and <span class="math inline">\(\Id: \mathcal{V} \to \mathcal{I}\)</span>.</li>
+<li class="fragment">Galois connection: <span class="math inline">\(J \in \mathcal{I},\ V \in \mathcal{V}\)</span>. <span class="math display">\[ \begin{array}{c}
+J \subseteq \Id(V) \ \Leftrightarrow\ V \subseteq \Var(J)
+\end{array} \]</span></li>
+</ul>
+</div>
 </section>
 <section id="ideal-properties" class="slide level2 center">
 <h2>Ideal : Properties</h2>
@@ -329,8 +349,11 @@ y = \sin(\theta), \\
 <div>
 <ul>
 <li class="fragment"><p>Unions/Intersections of finitely many algebraic varieties is an algebraic variety.</p></li>
-<li class="fragment"><p>Projection of an algebraic variety over a subset of variables is an algebraic variety.</p></li>
-<li class="fragment"><p>What can we say about algebraic varieties in <span class="math inline">\(\mathbb{R}\)</span>?</p></li>
+<li class="fragment"><p>Projection of an algebraic variety over a subset of variables is an algebraic variety?</p>
+<ul>
+<li class="fragment">Consider the projection of <span class="math inline">\(\{ (x, y)\ |\ xy = 1\}\)</span>.</li>
+</ul></li>
+<li class="fragment"><p>Exercise: Characterize all subsets of the real line <span class="math inline">\(\mathbb{R}\)</span> that are algebraic varieties.</p></li>
 </ul>
 </div>
 </section>
@@ -341,10 +364,10 @@ y = \sin(\theta), \\
 <li><strong>Ideal Generated by the Assertion:</strong> <span class="math display">\[ I = \langle p_1, \ldots, p_k \rangle = \{ p_1 \lambda_1 + \cdots + p_k \lambda_k\ |\ \lambda_i \in R[\vec{x}] \} \]</span></li>
 </ul>
 <div class="fragment">
+<p><strong>Ideal membership and entailment?</strong></p>
 <ul>
-<li class="fragment"><p><strong>Ideal membership and entailment?</strong></p></li>
 <li class="fragment"><p><strong>(A):</strong> <span class="math inline">\(p_1 = 0\ \land\ p_2 = 0\ \land\ \cdots \land\ p_k = 0  \ \models\ p = 0\)</span></p></li>
-<li class="fragment"><p><strong>(B):</strong> <span class="math inline">\(p \in \langle p_1, \ldots, p_k \rangle\)</span></p></li>
+<li class="fragment"><p><strong>(B):</strong> <span class="math inline">\(p \in \left\langle p_1, \ldots, p_k \right\rangle\)</span></p></li>
 <li class="fragment"><p>What (if any) is the connection between <strong>(A)</strong> and <strong>(B)</strong>?</p></li>
 </ul>
 </div>
@@ -378,7 +401,7 @@ y = \sin(\theta), \\
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Problem # 2</strong>: Algebraic Closure. <span class="math display">\[ (\forall x, y \in \mathbb{R}^2)\ (\forall p \in \mathbb{R}[x, y]),\; ( 1 + x^2 = 0) \ \models\  p(x,y)= 0\,. \]</span></li>
+<li><strong>Problem # 2</strong>: Algebraic Closure. <span class="math display">\[ (\forall x, y \in \mathbb{R}^2)\ \; ( 1 + x^2 = 0) \ \Rightarrow\  x^2 - y^2 + 2 y + x - 7 = 0\,. \]</span></li>
 </ul>
 </div>
 </section>
@@ -413,9 +436,6 @@ y = \sin(\theta), \\
 <section id="coefficient-field" class="slide level2 center">
 <h2>Coefficient Field</h2>
 <p>The field matters!!</p>
-<p><strong>Theorem:</strong> It is undecidable to check if</p>
-<p><span class="math display">\[ (\forall \vec{x} \in \mathbb{Q}^n)\; p_1 (\vec{x}) = 0 \cdots \land p_m(\vec{x}) = 0\ \models\ p (\vec{x}) = 0 \]</span></p>
-<p>wherein <span class="math inline">\(p, p_1, \ldots, p_m \in \mathbb{Q}[\vec{x}]\)</span>.</p>
 <div class="fragment">
 <ul>
 <li class="fragment"><p>Take <span class="math inline">\(n = 11\)</span>, do these entailments hold over <span class="math inline">\(\mathbb{Q}\)</span>: <span class="math display">\[ x^n + y^n = 1 \models (xy = 0\ \land\ x + y = 1) ?\]</span></p></li>

@@ -226,7 +226,7 @@ Find the ``strongest polynomial invariant''
 
 ## Application \# 2: Invariants for Physical Systems 
 
-![](two-spring-mass-system.png){width=80% fig-align="center"}
+![](figures/two-spring-mass-system.png){width=80% fig-align="center"}
 
 $$\begin{array}{l|l}
 \begin{array}{l}
@@ -286,7 +286,7 @@ $\frac{dp}{dt} = 0$.
 :::: {.columns}
 
 ::: {.column width="40%"}
-![](foundations-pp.jpeg){fig-align="center" width=80%}
+![](figures/foundations-pp.jpeg){fig-align="center" width=80%}
 :::
 
 ::: {.column width="60%"}
@@ -461,10 +461,10 @@ $$
 :::: {.columns}
 
 ::: {.column width="40%"}
-![A. M. Lyapunov](Aleksandr_Lyapunov.jpg){width=80%}
+![A. M. Lyapunov](figures/Aleksandr_Lyapunov.jpg){width=80%}
 :::
 ::: {.column width="60%"}
- ![](Airplane_axes.png){width=60% fig-alt="Diagram showing the three axes of an airplane" fig-align="center"} &nbsp; &nbsp; ![](stability_phase_plot.png){width=30% fig-alt="Phase plot" fig-align="center"}
+ ![](figures/Airplane_axes.png){width=60% fig-alt="Diagram showing the three axes of an airplane" fig-align="center"} &nbsp; &nbsp; ![](figures/stability_phase_plot.png){width=30% fig-alt="Phase plot" fig-align="center"}
 
 - Prove that a system's trajectories converge to a fixed point.
 - Fundamental for control synthesis.
