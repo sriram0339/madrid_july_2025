@@ -1,0 +1,563 @@
+---
+title: Algebraic and Semi-Algebraic Reasoning For Formal Methods
+subtitle: Lecture 3 -  Gr&ouml;bner Bases and Nullstellensatz
+author: Sriram Sankaranarayanan
+format:
+  revealjs:
+    theme: serif
+    center: true
+    transition: slide
+    incremental: false
+    slide-number: c/t
+    pdf-separate-fragments: true
+    html-math-method:
+        method: mathjax
+
+---
+
+## So far 
+
+- Ideals: $I \subseteq K[x_1, \ldots, x_n]$
+  - $p_1, p_2 \in I\ \Rightarrow\ p_1 + p_2 \in I$.
+  - $p \in I,\ q \in \mathbb{R}[\vec{x}],\ pq \in I$.
+
+- Varieties: Set of all points defined by common zeros of polynomials.
+
+## Ideal Membership Testing
+
+- __Input__ Generators of an ideal $\langle p_1, \ldots, p_m \rangle$, $p \in K[\vec{x}]$
+- __Output__ $p \in I$? 
+
+## Monomial Ordering
+
+- We will impose a ordering relation over monomials. 
+
+- For a single variable, this is easy:
+$$x^0 \prec x^1 \prec x^2 \prec \cdots \prec x^n \prec \cdots $$
+
+- What about multiple variables? 
+
+:::{.fragment}
+Requirements: 
+
+  - $\prec$ is a total order over monomials.
+
+  - $p \prec q$ implies forall $w,\; \; p w \prec q w$.
+
+  - $\prec$ is well order: every non-empty set has a least element.
+
+::: 
+
+## Monomial ordering 
+
+- We can view it as an order between monomials $\vec{x}^{\alpha}$.
+
+- Alternatively,  ordering over $\mathbb{N}^n$.
+
+$$\vec{x}^{\alpha_1} \prec \vec{x}^{\alpha_2}\ \Rightarrow\ \alpha_1 \prec \alpha_2$$
+
+## Lexicographic Ordering
+
+- Fix a rank among variables $x_1 > x_2 > \cdots > x_n$.
+- Write each monomial as a vector $(\alpha_1, \ldots, \alpha_n) \in \mathbb{N}^n$.
+   - Variables arranged in decreasing rank.
+- Use lexicographic comparison:
+$$(\vec{\alpha} \prec \vec{\beta}) \ \mathsf{iff}\ \alpha_1 = \beta_1, \cdots, \alpha_{i-1} = \beta_{i-1}, \ \alpha_i < \beta_i $$
+
+:::{.fragment}
+> - Take $x > y$.
+> - $x y^{100} \prec x^2 y^{10}$
+> - $x y^2 \prec x y^4$
+:::
+
+## Graded Lexicographic Ordering 
+
+$$\vec{\alpha} \prec \vec{\beta}\ \mathsf{iff}\ $$ 
+
+:::{.incremental}
+ - Either $| \vec{\alpha} |_1 < | \vec{\beta} |_1$, OR
+ - $|\vec{\alpha}|_1 = | \vec{\beta}|_1 \ \land\ \vec\alpha \prec_{\text{lex}} \vec\beta$.
+:::
+
+:::{.fragment}
+
+> - Take $x > y$.
+> - $x^2 y^{10} \prec x y^{15}$
+> - $x y^2 \prec x y^4$
+> - $y^3 \prec x y^2 \prec x^2 y  \prec x^3$
+
+:::
+
+## Leading Term and  Monomial {.smaller}
+
+Let $\prec$ be a monomial oder and $p$ be a polynomial.
+
+:::{.incremental}
+ - $LT(p):$ the term in $p$ 
+   - $c_{\alpha} x^{\alpha}$,  wherein $\alpha$ is the greatest among all monomials in the $\prec$ ordering.
+ - $LM(p):$ the monomial in $p$ 
+   - $x^{\alpha}$,  wherein $\alpha$ is the greatest among all monomials in the $\prec$ ordering.
+:::
+
+:::{.fragment}
+$$p = 2xy + y^2 + 3 x^2 + y^3$$
+
+ - Take $\prec$ to be lexicographic order with $x > y$.
+ - $LT(p) = 3 x^2$, $LM(p) = x^2$.
+ - How does the answer change if we used graded lex ordering?
+:::
+
+## Univariate Polynomial Division{.smaller}
+
+$$ (3 x^3 - 2 x^2 + 5) \div (x - 2) ?$$
+
+- $p = (3 x^3 - 2 x^2 + 5), q = 0$.
+
+:::{.incremental}
+
+- First multiply dividend by $3 x^2$  and subtract:
+  - $p = p - 3 x^2 (x-2) = 4x^2 + 5$
+  - $q = q + 3x^2$
+
+- Multiply dividend by $4x$ and subtract.
+  - $p = p - 4x (x-2) = 8x + 5$
+  - $q = q + 4x = 3x^2 + 4x$
+
+- Multiply div. by 8 and subtract.
+  - $p = p - 8 (x-2) = 21$
+  - $q = q + 8 = 3x^2 + 4x + 8$.
+
+- No more division possible. 
+  - $q = 3x^2 + 4x + 8$, $r = 8$.
+:::
+
+## Univariate Division 
+
+Let $f, g \in K[x]$ for field $K$. 
+
+- We can write $f = q g + r$,
+- $\mathsf{deg}(r) < \mathsf{deg}(g)$. 
+
+```pseudocode
+divide (f : K[x], g : K[x])
+  p := f
+  q := 0
+  while (LT(g) divides LT(p) ):
+      p := p - (LT(p)/LT(g)) g 
+      q := q + LT(p)/LT(g) 
+  r := p
+```
+
+## Multivariate Division 
+  
+Divide $f:\ \color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x$ by 
+  
+  - $g_1: (y- 2)$ and 
+  - $g_2: (x^2 + 3y)$.
+
+:::{.incremental}
+ - $f_1 = f - 2y (x^2 + 3y) = 4x y - 2x$
+ - $f_2 = f_1 - 4x(y-2) = 6 x$.
+ - No more divisions possible.
+ - $f = 2y g_1 + 4x g_2 + 6 x$.
+:::
+
+## Rewriting System
+
+$$f \xrightarrow{g_i} f'$$ 
+
+- Choose a term $t$ in $f$.
+  - $LT(g_i)$ must divide $t$.
+- $f' = f - \frac{t}{LT(g_i)}\  g_i$
+- Gets rid of $t$, replacing it with smaller terms. 
+
+:::{.fragment style="font-size: 0.75em"}
+
+$f:\ \color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x$
+
+ - $f \xrightarrow{ x^2 + 3y} (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2y (x^2 + 3y ) = 4xy - 2x$.
+ - $\begin{array}{rl}
+ f \xrightarrow{y - 2} & (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y - 2)\\
+ &  = 4x^2 + 6 y^2 + 4 xy - 2x\end{array}$ 
+:::
+
+## Rewriting System 
+
+Polynomial division: $f$ with $g_1, \ldots, g_m$.
+
+:::{.incremental}
+- $f \xrightarrow{g_1} f_1 \xrightarrow{g_2} f_2 \cdots \xrightarrow{g_i} \cdots  f_m$.
+- Terminating? Yes, how do we prove it?
+- Confluent? (i.e, unique normal form?)
+  - Not necessarily.
+:::
+
+
+
+## Multivariate Division 
+
+- Result is not unique 
+- It depends on the order in which we divide.
+
+
+## Multivariate Division (cont.) 
+
+:::{ style="font-size: 0.8em"}
+
+Divide $f$ by $g_1, \ldots, g_m$ (in $K[x_1, \ldots, x_n]$): 
+  
+:::{.incremental}
+ - Fix monomial order $\prec$.
+ - Initialize $p = f, q_1  = 0, \ldots, q_m = 0, r = 0$.
+ - While $p \not= 0$:
+    - if $\exists i, LT(g_i)\ |\ LT(p)$ then: 
+      - $p := p - (LT(p)/LT(g_i)) g_i$
+      - $q_i := q_i + LT(p)/LT(g_i)$
+    - else: 
+      - $p := p - LT(p)$
+      - $r := r + LT(p)$
+ - return $q_1, \ldots, q_m, r$
+:::
+
+:::
+
+## Reminder Properties 
+Divide $f$ by $g_1, \ldots, g_m$ (in $K[x_1, \ldots, x_n]$): 
+$$ f = q_1 g_1 + \cdots + q_m g_m + r $$ 
+
+What can we say about $q_i, r$?
+
+:::{.incremental}
+ - No term in $r$ is divisible by $LT(g_i)$ for any $i$.
+ - If $q_ig_i \not= 0$, then  $LT(q_i g_i) \preceq LT(f)$.
+   - Let's call this __no higher degree cancellation__  property.
+:::
+
+## Ideal Membership Problem
+
+
+**Input** $\langle g_1, \ldots, g_m \rangle,\ f \in k[x_1, \ldots, x_n]$.
+
+**Output** $f \in \langle g_1, \ldots, g_m \rangle$.
+
+- Perform a polynomial division $f$ with $g_1, \ldots, g_m$.
+$$f = q_1 g_1 + \cdots + q_m g_m + r $$
+
+**Claim** If $r = 0$ then $f \in \langle g_1, \ldots, g_m \rangle$.
+
+:::{.fragment}
+
+<font color="red"> Q: </font> Does the converse hold?
+:::
+
+## Ideal Membership vs Poly. Div. 
+
+:::{ style="font-size: 0.8em"}
+Take $I = \langle x y^2 - x - y, x^2 y - x - y \rangle$.
+
+- Let $\prec$ be graded lex ordering. 
+
+:::{.fragment .incremental}
+ 
+ - $y^2-x^2 \in I$ since $(y^2 - x^2) = x \times (x y^2 - x - y) - y \times (x^2 y - x - y)$.
+ - Reminder upon dividing $y^2-x^2$ w.r.t $x y^2 - x - y, x^2 y - x - y$?
+   - Answer $r=y^2-x^2$.
+ - <font color="red"> Issue : </font> Proving membership of $y^2-x^2$ requires  _higher degree term cancellation_.
+ - However, remember polynomial division has the __no higher degree cancellation__ property.
+:::
+
+:::
+## Gr&ouml;bner Basis 
+
+:::{.incremental}
+
+- Formulated by Buchberger in 1965: Named after his PhD advisor Wolfgang Gröbner! 
+- Es un gran ganga!
+- We are given an ideal $I=\left\langle g_1, \ldots, g_m \right\rangle$.
+- Polynomial division is unable to test for membership.
+   - Due to _higher degree cancellation_ problem.
+- Compute a different basis $\left\langle p_1, \ldots, p_K \right\rangle \equiv \left\langle g_1, \ldots, g_m \right\rangle$.
+   - Generates the same ideal.
+- __Guarantee:__  $f \in I$ <font color="red"> if and only if</font> polynomial division of $f$ w.r.t $p_1, \ldots, p_K$ yields remainder $0$.
+
+:::
+
+# Gröbner Basis and B&uuml;chberger's Algorithm
+
+## Finitely Generated Ideals
+:::{style="font-size: 0.85em"}
+Definition of Ideal: 
+
+:::{.fragment}
+ - $I \subseteq K[x_1, \ldots, x_n]$,
+ - Closed under addition: 
+    - $f_1, f_2 \in I \ \Rightarrow\ f_1 + f_2 \in I$.
+ - Closed under multiplication with any element:
+    - $f \in I, g \in K[\vec{x}]\ \Rightarrow\ gf \in I$.
+:::
+
+:::{.fragment .incremental}
+- $\langle g_1, \ldots, g_m \rangle = \{ \sum_{i=1}^m \lambda_i g_i\ |\ \lambda_i \in K[\vec{x}]\}$.
+
+- Can any ideal $I$ be written as $I = \langle g_1, \ldots, g_l \rangle$ for a finite $l$?
+   - Si se puede!
+   - Hilbert's finite basis theorem.
+:::
+:::
+
+## Hilbert's Finite Basis Theorem
+
+>  Hilbert, David (1890). "Über die Theorie der algebraischen Formen". Mathematische Annalen. 36 (4): 473–534.
+
+:::{style = "font-size: 0.8em align:center"}
+ Any ideal $I$ over $K[x_1, \ldots, x_n]$, where $K$ is a field, can be written $I = \langle g_1, \ldots, g_m \rangle$ for a finite set of generators.
+:::
+:::{.fragment}
+
+__Corollary:__  Any increasing chain of ideals converges:
+$$I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots I_N \subseteq \cdots $$
+
+- $\exists j \geq 1$ such that $I_j = I_{j+1} = \cdots$.
+
+- <font color="red"> Modern terminology</font> $K[x_1, \ldots, x_n]$ is a _Noetherian Ring_.
+:::
+
+## Proof of Hilbert's Finite Basis Theorem 
+
+- Consider the set of all leading terms of $I$.
+  - $J = \{ LT(p)\ |\ p \in I \}$.
+  - Consider the ideal generated by $J$.
+
+:::{.fragment .incremental}
+_Example:_  $I = \{ x^2, x^2 y, 2x^3, \frac{1}{2} x^2 y^2 + x^2 + x^2 y, \cdots\}$
+
+- $LT(I) = \{ x^2, x^2y, x^3, \frac{1}{2} x^2 y^2, \cdots \}$
+- Since $K$ is a field, the coefficients can be set to $1$.
+- Monomial ideal: ideal generated by a set of monomials.
+::: 
+
+## Dickson's Lemma
+
+- Every monomial ideal is finitely generated. 
+
+- TODO: include a nice picture visualizing this. 
+  - Monomial ideals as a subset of points in $\mathbb{N}^n$. 
+  - Closed under addition. 
+
+
+## Proof of Hilbert's Finite Basis Theorem
+
+:::{.incremental}
+- Consider the set of all leading terms of $I$.
+  - $J = \{ LT(p)\ |\ p \in I \}$.
+  - Consider the ideal generated by $J$.
+  - __Dickson's Lemma__ $J$ is finitely generated.
+   $$\langle J\rangle = \langle m_1, \ldots, m_k \rangle$$
+- Consider the basis $g_1, \ldots, g_k \in I$ such that $LT(g_i) = m_i$.
+-  Claim: $I = \langle g_1, \ldots, g_k \rangle$
+:::
+
+## Proof (Continued)
+Claim: $I = \langle g_1, \ldots, g_k \rangle$
+
+:::{.incremental}
+- $\langle g_1, \ldots, g_k \rangle \subseteq I$, since $g_1, \ldots, g_k \in I$.
+- To prove: $I \subseteq \langle g_1, \ldots, g_k \rangle$.
+  - Contradiction: let $p \in I$ but $p \not\in \langle g_1, \ldots, g_k\rangle$.
+  - Consider polynomial division of $p$ w.r.t $g_1, \ldots, g_k$.
+  - $p = \sum_{i=1}^k q_i g_i + r$, where $r \not= 0$. 
+  - $r = \left( p - \sum_{i=1}^k q_i g_i\right) \in I$.
+  - However, $LT(r)$ is not divisible by $LT(g_i)$. 
+  - $r \not\in \langle J \rangle$.
+  - Contradiction!
+:::
+
+## Gr&ouml;bner Basis{.smaller}
+
+Consider ideal $I \subseteq K[x_1, \ldots, x_n]$. 
+
+Let $G = \langle g_1, \ldots, g_m \rangle$ such that 
+$$\langle LT(g_1), \ldots, LT(g_m) \rangle = \langle LT(I) \rangle$$
+
+:::{.incremental}
+
+- $G$ appeared in the proof of Hibert's theorem.
+- Let $p \in I$, consider $r$ reminder of $p$ divided by $g_1, \ldots, g_m$.
+   - __Claim:__ $r = 0$.
+- <font color="red">Contradiction:</font> $r = (p - \sum_{i=1}^m q_i g_i ) \in I$.
+   - However, $LT(r)$ is not divisible by $LT(g_i)$.
+   - $r \in I$, $LT(r) \in LT(I)$ but $LT(r) \not\in \langle LT(g_1), \ldots, LT(g_m) \rangle$.
+   - Contradiction!
+
+- $G$ is called a <font color="red">Gr&ouml;bner basis</font> of $I$.
+:::
+
+## S-Polynomials
+
+Take two polynomials $g_1, g_2$. 
+$$S(g_1, g_2) = \frac{L(g_1, g_2)}{LT(g_1)} g_1 - \frac{L(g_1, g_2)}{LT(g_2)} g_2 $$
+
+  - $L(g_1, g_2)$ is the smallest degree monomial divisible by both $LT(g_1)$ and $LT(g_2)$.
+  - $LT(g_1) = a_1 x^{\alpha_1}, LT(g_2) = a_2 x^{\alpha_2}$.
+    - $L(g_1, g_2) = x^{\max(\alpha_1, \alpha_2)}$.
+  - Forces cancellation of the leading terms.
+  
+ 
+--- 
+
+:::{.incremental}
+  - $g_1 = \color{red}{x y^2} - x - y, g_2= \color{red}{x^2 y} - x - y$.
+  - $L(g_1, g_2)=x^2y^2$.
+  - $S(g_1, g_2) = \frac{x^2y^2}{xy^2} (g_1) - \frac{x^2y^2}{x^2y} (g_2)$
+    - $=\color{red}{x^2 y^2} - x^2 - x y - \color{red}{x^2 y^2} + x y + y^2$
+    - $= y^2 - x^2$.
+:::
+
+## S-Polynomials (cont)
+
+:::{.incremental}
+
+- S-polynomials capture the result of cancellation:
+- Suppose $LM(p_i) = \vec{x}^\delta$ for $i = 1,\ldots, m$.
+- However, $LM(\sum_{i=1}^m p_i) \prec \vec{x}^{\delta}$,
+   - It follows that $\sum_{i=1}^m p_i = \sum_{i=1}^m \sum_{j > i} c_{i,j} S(p_i, p_j)$, for some $c_{i,j} \in K$.
+
+:::
+
+## Buchberger's Criterion
+
+A basis $I = \langle g_1, \ldots, g_m \rangle$ is a Gr&ouml;bner basis if and only if 
+
+  - For every $g_i, g_j,\ (i \not= j)$, reminder of $S(g_i, g_j)$ upon division by $g_1, \ldots, g_m$ is $0$. 
+
+:::{.fragment}
+ 
+ - Previously, $I = \langle x y^2 - x - y, x^2 y - x - y \rangle$, not a Gr&ouml;bner basis.
+
+ - $x^2 - y^2 \in I$ but reminder of $x^2 - y^2$ is non-zero. 
+
+ - However, $I = \langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle$ is a Gr&ouml;bner basis.
+:::
+
+--- 
+
+```python
+
+import sympy as sp
+from sympy.abc import x, y
+
+F = [x * y**2  -x - y , x**2*y -x -y]
+G = sp.Gr&ouml;bner(F, x, y, order='grlex',domain='C')
+print(G)
+```
+
+Result:  $\langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle$. 
+
+  - $S(x^2-y^2, xy^2-x-y) = y^4 -x^2 - xy$
+    - $= y \times (y^3 - x - y) + 1 \times (x^2 - y^2) + 0$.
+    - Reminder is zero $\checkmark$.
+
+  - $S(y^3-x-y, x^2-y^2) = y^5 - x^3 - x^2 y$
+    - $=y^2(y^3 - x - y) - (x+ y) (x^2 - y^2) + 0$.
+    - Reminder is zero $\checkmark$.
+
+## Buchberger's Algorithm {.smaller}
+
+- An algorithm for constructing Gr&ouml;bner basis.
+  - Input $I = \langle g_1, \ldots, g_m \rangle$
+    - Monomial order $\prec$.
+  - Output $\langle f_1, \ldots, f_K \rangle$ - Gr&ouml;bner basis for $I$.
+
+:::{.fragment .incremental}
+- $I_0 = \langle g_1, \ldots, g_m \rangle$.
+- Let $I_j = \langle p_1, \ldots, p_l\rangle$.
+- Check if current basis is Gr&ouml;bner.
+  - Compute $S(p_i, p_j)$ for each $i \not= j$.
+  - Compute reminder of $S(p_i, p_j)$ wrt $p_1, \ldots, p_l$.
+  - $I_{j+1} = \langle p_1, \ldots, p_l, r_{i,j} \rangle$.
+- If all S-polynomials leave a reminder of $0$, then we have a Gr&ouml;bner basis.
+
+- <font color="red"> Termination? </font>
+:::
+
+## Complexity of Gr&ouml;bner Basis
+
+- Ideal membership is known to be EXPSPACE-complete.
+  - Ernst Mayr, Journal of Complexity, 1997.
+- Gr&ouml;bner basis can be quite expensive.
+  - Bound on the degree of polynomials is very high.
+  - See Thomas Dube, SIAM J. of Comp. 1990.
+- B&uuml;chberger Algorithm has 
+
+## Gr&ouml;bner Basis
+
+- Expensive computation in the worst case. 
+  - Best algorithms include Faguere's F5 algorithm.
+- It is implemented in most computer algebra systems.
+- Ideas to speed up:
+  - Dynamically alter the monomial ordering on the fly.
+  - Avoid unnecessary S-polynomial reductions.
+  - ...
+
+## Weak Nullstellensatz
+
+- Let $p_1 = 0, \ldots, p_m = 0$ represent an inconsistent set of polynomial inequalities.
+
+- $1 \in \langle p_1, \ldots, p_m \rangle$.
+
+__Corollary__ (Reduced) Gr&ouml;bner basis must be $\langle 1\rangle$.
+
+
+## Nullstellensatz
+
+$$p_1 = 0, \ldots, p_m = 0  \models p = 0$$ 
+
+\text{Hilbert's Nullstellensatz:} 
+$$p^r \in \langle p_1, \ldots, p_m \rangle $$
+
+- Rabinowitsch trick: 
+  - Compute Grobner basis of $\langle p_1, \ldots, p_n, (1-y p) \rangle$
+  - __Claim:__ Entailment holds iff $1 \in \langle p_1, \ldots, p_n, (1-y p) \rangle$
+
+## Rabinowitsch Trick 
+
+- $p^r \in \langle p_1, \ldots, p_m \rangle$ for some $r 
+\in \mathbb{N}$
+- $1 \in \langle p_1, \ldots, p_n, (1-y p) \rangle$
+
+**Proof** See chapter 3 of book/during lecture.
+
+## Operations on Varieties
+
+- Algebraic Variety $V$
+  - Representation: Gr&ouml;bner basis of the ideal $
+  \mathsf{Id}(V)$.
+-  Intersection of varieties: 
+  - $V_1 \cap V_2$ -- $\mathsf{Gr&ouml;bner}(G_1 \cup G_2)$
+- Union of varieties:
+  - $V_1 \cup V_2$ -- $G_1 \otimes G_2$.
+
+--- 
+
+- Inclusion Checking: $V_1 \cup V_2$
+  - Check that every generator in $G_1$ belongs to $\langle G_2 \rangle$
+
+- Image computation:  
+  - Assertion: $\varphi: g_1(\vec{x}) = 0\ \land\ \cdots\ \land\ g_m(\vec{x}) = 0$
+  - Transition relation $\rho:\ p_1(\vec{x}, \vec{x}') = 0\ \land\ \cdots\ p_m(\vec{x}, \vec{x}') = 0$.
+  - Post-Condition: $(\exists\ \vec{x})\ \varphi[\vec{x}] \land\ \rho[\vec{x}, \vec{x}']$
+
+## Elimination Theory
+
+Let $I: \langle p_1, \ldots, p_m \rangle$ be an ideal in $K[x_1, \ldots, x_n, y_1, \ldots, y_m]$.
+
+:::{.incremental}
+- Compute Gr&ouml;bner basis $G$ under an _elimination order_ 
+  - Eg., lexicographic ordering: $x_1 > \cdots > x_n > y_1 > \cdots > y_m$
+
+- Take all polynomials involving $y_1, \ldots, y_m$:
+  - $\widehat{G} = G \cap K[y_1, \ldots, y_m]$
+
+- Claim: $I \cap K[y_1, \ldots, y_m] = \langle \widehat{G} \rangle$.
+
+:::

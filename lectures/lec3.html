@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="lec3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lec3_files/libs/quarto-html/tabby.min.js"></script>
+<script src="lec3_files/libs/quarto-html/popper.min.js"></script>
+<script src="lec3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="lec3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lec3_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="lec3_files/libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.43">
+
+  <meta name="author" content="Sriram Sankaranarayanan">
+  <title>Algebraic and Semi-Algebraic Reasoning For Formal Methods</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="lec3_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="lec3_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="lec3_files/libs/revealjs/dist/theme/quarto-930ff2c627947ef0370a337d1a02600e.css">
+  <link href="lec3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="lec3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="lec3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="lec3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Algebraic and Semi-Algebraic Reasoning For Formal Methods</h1>
+  <p class="subtitle">Lecture 3 - Gröbner Bases and Nullstellensatz</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Sriram Sankaranarayanan 
+</div>
+</div>
+</div>
+
+</section>
+<section id="so-far" class="slide level2 center">
+<h2>So far</h2>
+<ul>
+<li>Ideals: <span class="math inline">\(I \subseteq K[x_1, \ldots, x_n]\)</span>
+<ul>
+<li><span class="math inline">\(p_1, p_2 \in I\ \Rightarrow\ p_1 + p_2 \in I\)</span>.</li>
+<li><span class="math inline">\(p \in I,\ q \in \mathbb{R}[\vec{x}],\ pq \in I\)</span>.</li>
+</ul></li>
+<li>Varieties: Set of all points defined by common zeros of polynomials.</li>
+</ul>
+</section>
+<section id="ideal-membership-testing" class="slide level2 center">
+<h2>Ideal Membership Testing</h2>
+<ul>
+<li><strong>Input</strong> Generators of an ideal <span class="math inline">\(\langle p_1, \ldots, p_m \rangle\)</span>, <span class="math inline">\(p \in K[\vec{x}]\)</span></li>
+<li><strong>Output</strong> <span class="math inline">\(p \in I\)</span>?</li>
+</ul>
+</section>
+<section id="monomial-ordering" class="slide level2 center">
+<h2>Monomial Ordering</h2>
+<ul>
+<li><p>We will impose a ordering relation over monomials.</p></li>
+<li><p>For a single variable, this is easy: <span class="math display">\[x^0 \prec x^1 \prec x^2 \prec \cdots \prec x^n \prec \cdots \]</span></p></li>
+<li><p>What about multiple variables?</p></li>
+</ul>
+<div class="fragment">
+<p>Requirements:</p>
+<ul>
+<li><p><span class="math inline">\(\prec\)</span> is a total order over monomials.</p></li>
+<li><p><span class="math inline">\(p \prec q\)</span> implies forall <span class="math inline">\(w,\; \; p w \prec q w\)</span>.</p></li>
+<li><p><span class="math inline">\(\prec\)</span> is well order: every non-empty set has a least element.</p></li>
+</ul>
+</div>
+</section>
+<section id="monomial-ordering-1" class="slide level2 center">
+<h2>Monomial ordering</h2>
+<ul>
+<li><p>We can view it as an order between monomials <span class="math inline">\(\vec{x}^{\alpha}\)</span>.</p></li>
+<li><p>Alternatively, ordering over <span class="math inline">\(\mathbb{N}^n\)</span>.</p></li>
+</ul>
+<p><span class="math display">\[\vec{x}^{\alpha_1} \prec \vec{x}^{\alpha_2}\ \Rightarrow\ \alpha_1 \prec \alpha_2\]</span></p>
+</section>
+<section id="lexicographic-ordering" class="slide level2 center">
+<h2>Lexicographic Ordering</h2>
+<ul>
+<li>Fix a rank among variables <span class="math inline">\(x_1 &gt; x_2 &gt; \cdots &gt; x_n\)</span>.</li>
+<li>Write each monomial as a vector <span class="math inline">\((\alpha_1, \ldots, \alpha_n) \in \mathbb{N}^n\)</span>.
+<ul>
+<li>Variables arranged in decreasing rank.</li>
+</ul></li>
+<li>Use lexicographic comparison: <span class="math display">\[(\vec{\alpha} \prec \vec{\beta}) \ \mathsf{iff}\ \alpha_1 = \beta_1, \cdots, \alpha_{i-1} = \beta_{i-1}, \ \alpha_i &lt; \beta_i \]</span></li>
+</ul>
+<div class="fragment">
+<blockquote>
+
+<ul>
+<li>Take <span class="math inline">\(x &gt; y\)</span>.</li>
+<li><span class="math inline">\(x y^{100} \prec x^2 y^{10}\)</span></li>
+<li><span class="math inline">\(x y^2 \prec x y^4\)</span></li>
+</ul>
+
+</blockquote>
+</div>
+</section>
+<section id="graded-lexicographic-ordering" class="slide level2 center">
+<h2>Graded Lexicographic Ordering</h2>
+<p><span class="math display">\[\vec{\alpha} \prec \vec{\beta}\ \mathsf{iff}\ \]</span></p>
+<div>
+<ul>
+<li class="fragment">Either <span class="math inline">\(| \vec{\alpha} |_1 &lt; | \vec{\beta} |_1\)</span>, OR</li>
+<li class="fragment"><span class="math inline">\(|\vec{\alpha}|_1 = | \vec{\beta}|_1 \ \land\ \vec\alpha \prec_{\text{lex}} \vec\beta\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<blockquote>
+
+<ul>
+<li>Take <span class="math inline">\(x &gt; y\)</span>.</li>
+<li><span class="math inline">\(x^2 y^{10} \prec x y^{15}\)</span></li>
+<li><span class="math inline">\(x y^2 \prec x y^4\)</span></li>
+<li><span class="math inline">\(y^3 \prec x y^2 \prec x^2 y  \prec x^3\)</span></li>
+</ul>
+
+</blockquote>
+</div>
+</section>
+<section id="leading-term-and-monomial" class="slide level2 smaller center">
+<h2>Leading Term and Monomial</h2>
+<p>Let <span class="math inline">\(\prec\)</span> be a monomial oder and <span class="math inline">\(p\)</span> be a polynomial.</p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(LT(p):\)</span> the term in <span class="math inline">\(p\)</span>
+<ul>
+<li class="fragment"><span class="math inline">\(c_{\alpha} x^{\alpha}\)</span>, wherein <span class="math inline">\(\alpha\)</span> is the greatest among all monomials in the <span class="math inline">\(\prec\)</span> ordering.</li>
+</ul></li>
+<li class="fragment"><span class="math inline">\(LM(p):\)</span> the monomial in <span class="math inline">\(p\)</span>
+<ul>
+<li class="fragment"><span class="math inline">\(x^{\alpha}\)</span>, wherein <span class="math inline">\(\alpha\)</span> is the greatest among all monomials in the <span class="math inline">\(\prec\)</span> ordering.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math display">\[p = 2xy + y^2 + 3 x^2 + y^3\]</span></p>
+<ul>
+<li>Take <span class="math inline">\(\prec\)</span> to be lexicographic order with <span class="math inline">\(x &gt; y\)</span>.</li>
+<li><span class="math inline">\(LT(p) = 3 x^2\)</span>, <span class="math inline">\(LM(p) = x^2\)</span>.</li>
+<li>How does the answer change if we used graded lex ordering?</li>
+</ul>
+</div>
+</section>
+<section id="univariate-polynomial-division" class="slide level2 smaller center">
+<h2>Univariate Polynomial Division</h2>
+<p><span class="math display">\[ (3 x^3 - 2 x^2 + 5) \div (x - 2) ?\]</span></p>
+<ul>
+<li><span class="math inline">\(p = (3 x^3 - 2 x^2 + 5), q = 0\)</span>.</li>
+</ul>
+<div>
+<ul>
+<li class="fragment">First multiply dividend by <span class="math inline">\(3 x^2\)</span> and subtract:
+<ul>
+<li class="fragment"><span class="math inline">\(p = p - 3 x^2 (x-2) = 4x^2 + 5\)</span></li>
+<li class="fragment"><span class="math inline">\(q = q + 3x^2\)</span></li>
+</ul></li>
+<li class="fragment">Multiply dividend by <span class="math inline">\(4x\)</span> and subtract.
+<ul>
+<li class="fragment"><span class="math inline">\(p = p - 4x (x-2) = 8x + 5\)</span></li>
+<li class="fragment"><span class="math inline">\(q = q + 4x = 3x^2 + 4x\)</span></li>
+</ul></li>
+<li class="fragment">Multiply div. by 8 and subtract.
+<ul>
+<li class="fragment"><span class="math inline">\(p = p - 8 (x-2) = 21\)</span></li>
+<li class="fragment"><span class="math inline">\(q = q + 8 = 3x^2 + 4x + 8\)</span>.</li>
+</ul></li>
+<li class="fragment">No more division possible.
+<ul>
+<li class="fragment"><span class="math inline">\(q = 3x^2 + 4x + 8\)</span>, <span class="math inline">\(r = 8\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="univariate-division" class="slide level2 center">
+<h2>Univariate Division</h2>
+<p>Let <span class="math inline">\(f, g \in K[x]\)</span> for field <span class="math inline">\(K\)</span>.</p>
+<ul>
+<li>We can write <span class="math inline">\(f = q g + r\)</span>,</li>
+<li><span class="math inline">\(\mathsf{deg}(r) &lt; \mathsf{deg}(g)\)</span>.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pseudocode number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>divide (f : K[x], g : K[x])</span>
+<span id="cb1-2"><a href=""></a>  p := f</span>
+<span id="cb1-3"><a href=""></a>  q := 0</span>
+<span id="cb1-4"><a href=""></a>  while (LT(g) divides LT(p) ):</span>
+<span id="cb1-5"><a href=""></a>      p := p - (LT(p)/LT(g)) g </span>
+<span id="cb1-6"><a href=""></a>      q := q + LT(p)/LT(g) </span>
+<span id="cb1-7"><a href=""></a>  r := p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="multivariate-division" class="slide level2 center">
+<h2>Multivariate Division</h2>
+<p>Divide <span class="math inline">\(f:\ \color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x\)</span> by</p>
+<ul>
+<li><span class="math inline">\(g_1: (y- 2)\)</span> and</li>
+<li><span class="math inline">\(g_2: (x^2 + 3y)\)</span>.</li>
+</ul>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(f_1 = f - 2y (x^2 + 3y) = 4x y - 2x\)</span></li>
+<li class="fragment"><span class="math inline">\(f_2 = f_1 - 4x(y-2) = 6 x\)</span>.</li>
+<li class="fragment">No more divisions possible.</li>
+<li class="fragment"><span class="math inline">\(f = 2y g_1 + 4x g_2 + 6 x\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="rewriting-system" class="slide level2 center">
+<h2>Rewriting System</h2>
+<p><span class="math display">\[f \xrightarrow{g_i} f'\]</span></p>
+<ul>
+<li>Choose a term <span class="math inline">\(t\)</span> in <span class="math inline">\(f\)</span>.
+<ul>
+<li><span class="math inline">\(LT(g_i)\)</span> must divide <span class="math inline">\(t\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(f' = f - \frac{t}{LT(g_i)}\  g_i\)</span></li>
+<li>Gets rid of <span class="math inline">\(t\)</span>, replacing it with smaller terms.</li>
+</ul>
+<div class="fragment" style="font-size: 0.75em">
+<p><span class="math inline">\(f:\ \color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x\)</span></p>
+<ul>
+<li><span class="math inline">\(f \xrightarrow{ x^2 + 3y} (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2y (x^2 + 3y ) = 4xy - 2x\)</span>.</li>
+<li><span class="math inline">\(\begin{array}{rl}
+f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y - 2)\\
+&amp;  = 4x^2 + 6 y^2 + 4 xy - 2x\end{array}\)</span></li>
+</ul>
+</div>
+</section>
+<section id="rewriting-system-1" class="slide level2 center">
+<h2>Rewriting System</h2>
+<p>Polynomial division: <span class="math inline">\(f\)</span> with <span class="math inline">\(g_1, \ldots, g_m\)</span>.</p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(f \xrightarrow{g_1} f_1 \xrightarrow{g_2} f_2 \cdots \xrightarrow{g_i} \cdots  f_m\)</span>.</li>
+<li class="fragment">Terminating? Yes, how do we prove it?</li>
+<li class="fragment">Confluent? (i.e, unique normal form?)
+<ul>
+<li class="fragment">Not necessarily.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="multivariate-division-1" class="slide level2 center">
+<h2>Multivariate Division</h2>
+<ul>
+<li>Result is not unique</li>
+<li>It depends on the order in which we divide.</li>
+</ul>
+</section>
+<section id="multivariate-division-cont." class="slide level2 center">
+<h2>Multivariate Division (cont.)</h2>
+<div style="font-size: 0.8em">
+<p>Divide <span class="math inline">\(f\)</span> by <span class="math inline">\(g_1, \ldots, g_m\)</span> (in <span class="math inline">\(K[x_1, \ldots, x_n]\)</span>):</p>
+<div>
+<ul>
+<li class="fragment">Fix monomial order <span class="math inline">\(\prec\)</span>.</li>
+<li class="fragment">Initialize <span class="math inline">\(p = f, q_1  = 0, \ldots, q_m = 0, r = 0\)</span>.</li>
+<li class="fragment">While <span class="math inline">\(p \not= 0\)</span>:
+<ul>
+<li class="fragment">if <span class="math inline">\(\exists i, LT(g_i)\ |\ LT(p)\)</span> then:
+<ul>
+<li class="fragment"><span class="math inline">\(p := p - (LT(p)/LT(g_i)) g_i\)</span></li>
+<li class="fragment"><span class="math inline">\(q_i := q_i + LT(p)/LT(g_i)\)</span></li>
+</ul></li>
+<li class="fragment">else:
+<ul>
+<li class="fragment"><span class="math inline">\(p := p - LT(p)\)</span></li>
+<li class="fragment"><span class="math inline">\(r := r + LT(p)\)</span></li>
+</ul></li>
+</ul></li>
+<li class="fragment">return <span class="math inline">\(q_1, \ldots, q_m, r\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="reminder-properties" class="slide level2 center">
+<h2>Reminder Properties</h2>
+<p>Divide <span class="math inline">\(f\)</span> by <span class="math inline">\(g_1, \ldots, g_m\)</span> (in <span class="math inline">\(K[x_1, \ldots, x_n]\)</span>): <span class="math display">\[ f = q_1 g_1 + \cdots + q_m g_m + r \]</span></p>
+<p>What can we say about <span class="math inline">\(q_i, r\)</span>?</p>
+<div>
+<ul>
+<li class="fragment">No term in <span class="math inline">\(r\)</span> is divisible by <span class="math inline">\(LT(g_i)\)</span> for any <span class="math inline">\(i\)</span>.</li>
+<li class="fragment">If <span class="math inline">\(q_ig_i \not= 0\)</span>, then <span class="math inline">\(LT(q_i g_i) \preceq LT(f)\)</span>.
+<ul>
+<li class="fragment">Let’s call this <strong>no higher degree cancellation</strong> property.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="ideal-membership-problem" class="slide level2 center">
+<h2>Ideal Membership Problem</h2>
+<p><strong>Input</strong> <span class="math inline">\(\langle g_1, \ldots, g_m \rangle,\ f \in k[x_1, \ldots, x_n]\)</span>.</p>
+<p><strong>Output</strong> <span class="math inline">\(f \in \langle g_1, \ldots, g_m \rangle\)</span>.</p>
+<ul>
+<li>Perform a polynomial division <span class="math inline">\(f\)</span> with <span class="math inline">\(g_1, \ldots, g_m\)</span>. <span class="math display">\[f = q_1 g_1 + \cdots + q_m g_m + r \]</span></li>
+</ul>
+<p><strong>Claim</strong> If <span class="math inline">\(r = 0\)</span> then <span class="math inline">\(f \in \langle g_1, \ldots, g_m \rangle\)</span>.</p>
+<div class="fragment">
+<p><font color="red"> Q: </font> Does the converse hold?</p>
+</div>
+</section>
+<section id="ideal-membership-vs-poly.-div." class="slide level2 center">
+<h2>Ideal Membership vs Poly. Div.</h2>
+<div style="font-size: 0.8em">
+<p>Take <span class="math inline">\(I = \langle x y^2 - x - y, x^2 y - x - y \rangle\)</span>.</p>
+<ul>
+<li>Let <span class="math inline">\(\prec\)</span> be graded lex ordering.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li class="fragment"><span class="math inline">\(y^2-x^2 \in I\)</span> since <span class="math inline">\((y^2 - x^2) = x \times (x y^2 - x - y) - y \times (x^2 y - x - y)\)</span>.</li>
+<li class="fragment">Reminder upon dividing <span class="math inline">\(y^2-x^2\)</span> w.r.t <span class="math inline">\(x y^2 - x - y, x^2 y - x - y\)</span>?
+<ul>
+<li class="fragment">Answer <span class="math inline">\(r=y^2-x^2\)</span>.</li>
+</ul></li>
+<li class="fragment"><font color="red"> Issue : </font> Proving membership of <span class="math inline">\(y^2-x^2\)</span> requires <em>higher degree term cancellation</em>.</li>
+<li class="fragment">However, remember polynomial division has the <strong>no higher degree cancellation</strong> property.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="gröbner-basis" class="slide level2 center">
+<h2>Gröbner Basis</h2>
+<div>
+<ul>
+<li class="fragment">Formulated by Buchberger in 1965: Named after his PhD advisor Wolfgang Gröbner!</li>
+<li class="fragment">Es un gran ganga!</li>
+<li class="fragment">We are given an ideal <span class="math inline">\(I=\left\langle g_1, \ldots, g_m \right\rangle\)</span>.</li>
+<li class="fragment">Polynomial division is unable to test for membership.
+<ul>
+<li class="fragment">Due to <em>higher degree cancellation</em> problem.</li>
+</ul></li>
+<li class="fragment">Compute a different basis <span class="math inline">\(\left\langle p_1, \ldots, p_K \right\rangle \equiv \left\langle g_1, \ldots, g_m \right\rangle\)</span>.
+<ul>
+<li class="fragment">Generates the same ideal.</li>
+</ul></li>
+<li class="fragment"><strong>Guarantee:</strong> <span class="math inline">\(f \in I\)</span> <font color="red"> if and only if</font> polynomial division of <span class="math inline">\(f\)</span> w.r.t <span class="math inline">\(p_1, \ldots, p_K\)</span> yields remainder <span class="math inline">\(0\)</span>.</li>
+</ul>
+</div>
+</section>
+<section>
+<section id="gröbner-basis-and-büchbergers-algorithm" class="title-slide slide level1 center">
+<h1>Gröbner Basis and Büchberger’s Algorithm</h1>
+
+</section>
+<section id="finitely-generated-ideals" class="slide level2 center">
+<h2>Finitely Generated Ideals</h2>
+<div style="font-size: 0.85em">
+<p>Definition of Ideal:</p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(I \subseteq K[x_1, \ldots, x_n]\)</span>,</li>
+<li>Closed under addition:
+<ul>
+<li><span class="math inline">\(f_1, f_2 \in I \ \Rightarrow\ f_1 + f_2 \in I\)</span>.</li>
+</ul></li>
+<li>Closed under multiplication with any element:
+<ul>
+<li><span class="math inline">\(f \in I, g \in K[\vec{x}]\ \Rightarrow\ gf \in I\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><p><span class="math inline">\(\langle g_1, \ldots, g_m \rangle = \{ \sum_{i=1}^m \lambda_i g_i\ |\ \lambda_i \in K[\vec{x}]\}\)</span>.</p></li>
+<li class="fragment"><p>Can any ideal <span class="math inline">\(I\)</span> be written as <span class="math inline">\(I = \langle g_1, \ldots, g_l \rangle\)</span> for a finite <span class="math inline">\(l\)</span>?</p>
+<ul>
+<li class="fragment">Si se puede!</li>
+<li class="fragment">Hilbert’s finite basis theorem.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="hilberts-finite-basis-theorem" class="slide level2 center">
+<h2>Hilbert’s Finite Basis Theorem</h2>
+<blockquote>
+<p>Hilbert, David (1890). “Über die Theorie der algebraischen Formen”. Mathematische Annalen. 36 (4): 473–534.</p>
+</blockquote>
+<div style="font-size: 0.8em align:center">
+<p>Any ideal <span class="math inline">\(I\)</span> over <span class="math inline">\(K[x_1, \ldots, x_n]\)</span>, where <span class="math inline">\(K\)</span> is a field, can be written <span class="math inline">\(I = \langle g_1, \ldots, g_m \rangle\)</span> for a finite set of generators.</p>
+</div>
+<div class="fragment">
+<p><strong>Corollary:</strong> Any increasing chain of ideals converges: <span class="math display">\[I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots I_N \subseteq \cdots \]</span></p>
+<ul>
+<li><p><span class="math inline">\(\exists j \geq 1\)</span> such that <span class="math inline">\(I_j = I_{j+1} = \cdots\)</span>.</p></li>
+<li><p><font color="red"> Modern terminology</font> <span class="math inline">\(K[x_1, \ldots, x_n]\)</span> is a <em>Noetherian Ring</em>.</p></li>
+</ul>
+</div>
+</section>
+<section id="proof-of-hilberts-finite-basis-theorem" class="slide level2 center">
+<h2>Proof of Hilbert’s Finite Basis Theorem</h2>
+<ul>
+<li>Consider the set of all leading terms of <span class="math inline">\(I\)</span>.
+<ul>
+<li><span class="math inline">\(J = \{ LT(p)\ |\ p \in I \}\)</span>.</li>
+<li>Consider the ideal generated by <span class="math inline">\(J\)</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><em>Example:</em> <span class="math inline">\(I = \{ x^2, x^2 y, 2x^3, \frac{1}{2} x^2 y^2 + x^2 + x^2 y, \cdots\}\)</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\(LT(I) = \{ x^2, x^2y, x^3, \frac{1}{2} x^2 y^2, \cdots \}\)</span></li>
+<li class="fragment">Since <span class="math inline">\(K\)</span> is a field, the coefficients can be set to <span class="math inline">\(1\)</span>.</li>
+<li class="fragment">Monomial ideal: ideal generated by a set of monomials.</li>
+</ul>
+</div>
+</section>
+<section id="dicksons-lemma" class="slide level2 center">
+<h2>Dickson’s Lemma</h2>
+<ul>
+<li><p>Every monomial ideal is finitely generated.</p></li>
+<li><p>TODO: include a nice picture visualizing this.</p>
+<ul>
+<li>Monomial ideals as a subset of points in <span class="math inline">\(\mathbb{N}^n\)</span>.</li>
+<li>Closed under addition.</li>
+</ul></li>
+</ul>
+</section>
+<section id="proof-of-hilberts-finite-basis-theorem-1" class="slide level2 center">
+<h2>Proof of Hilbert’s Finite Basis Theorem</h2>
+<div>
+<ul>
+<li class="fragment">Consider the set of all leading terms of <span class="math inline">\(I\)</span>.
+<ul>
+<li class="fragment"><span class="math inline">\(J = \{ LT(p)\ |\ p \in I \}\)</span>.</li>
+<li class="fragment">Consider the ideal generated by <span class="math inline">\(J\)</span>.</li>
+<li class="fragment"><strong>Dickson’s Lemma</strong> <span class="math inline">\(J\)</span> is finitely generated. <span class="math display">\[\langle J\rangle = \langle m_1, \ldots, m_k \rangle\]</span></li>
+</ul></li>
+<li class="fragment">Consider the basis <span class="math inline">\(g_1, \ldots, g_k \in I\)</span> such that <span class="math inline">\(LT(g_i) = m_i\)</span>.</li>
+<li class="fragment">Claim: <span class="math inline">\(I = \langle g_1, \ldots, g_k \rangle\)</span></li>
+</ul>
+</div>
+</section>
+<section id="proof-continued" class="slide level2 center">
+<h2>Proof (Continued)</h2>
+<p>Claim: <span class="math inline">\(I = \langle g_1, \ldots, g_k \rangle\)</span></p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(\langle g_1, \ldots, g_k \rangle \subseteq I\)</span>, since <span class="math inline">\(g_1, \ldots, g_k \in I\)</span>.</li>
+<li class="fragment">To prove: <span class="math inline">\(I \subseteq \langle g_1, \ldots, g_k \rangle\)</span>.
+<ul>
+<li class="fragment">Contradiction: let <span class="math inline">\(p \in I\)</span> but <span class="math inline">\(p \not\in \langle g_1, \ldots, g_k\rangle\)</span>.</li>
+<li class="fragment">Consider polynomial division of <span class="math inline">\(p\)</span> w.r.t <span class="math inline">\(g_1, \ldots, g_k\)</span>.</li>
+<li class="fragment"><span class="math inline">\(p = \sum_{i=1}^k q_i g_i + r\)</span>, where <span class="math inline">\(r \not= 0\)</span>.</li>
+<li class="fragment"><span class="math inline">\(r = \left( p - \sum_{i=1}^k q_i g_i\right) \in I\)</span>.</li>
+<li class="fragment">However, <span class="math inline">\(LT(r)\)</span> is not divisible by <span class="math inline">\(LT(g_i)\)</span>.</li>
+<li class="fragment"><span class="math inline">\(r \not\in \langle J \rangle\)</span>.</li>
+<li class="fragment">Contradiction!</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="gröbner-basis-1" class="slide level2 smaller center">
+<h2>Gröbner Basis</h2>
+<p>Consider ideal <span class="math inline">\(I \subseteq K[x_1, \ldots, x_n]\)</span>.</p>
+<p>Let <span class="math inline">\(G = \langle g_1, \ldots, g_m \rangle\)</span> such that <span class="math display">\[\langle LT(g_1), \ldots, LT(g_m) \rangle = \langle LT(I) \rangle\]</span></p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(G\)</span> appeared in the proof of Hibert’s theorem.</li>
+<li class="fragment">Let <span class="math inline">\(p \in I\)</span>, consider <span class="math inline">\(r\)</span> reminder of <span class="math inline">\(p\)</span> divided by <span class="math inline">\(g_1, \ldots, g_m\)</span>.
+<ul>
+<li class="fragment"><strong>Claim:</strong> <span class="math inline">\(r = 0\)</span>.</li>
+</ul></li>
+<li class="fragment"><font color="red">Contradiction:</font> <span class="math inline">\(r = (p - \sum_{i=1}^m q_i g_i ) \in I\)</span>.
+<ul>
+<li class="fragment">However, <span class="math inline">\(LT(r)\)</span> is not divisible by <span class="math inline">\(LT(g_i)\)</span>.</li>
+<li class="fragment"><span class="math inline">\(r \in I\)</span>, <span class="math inline">\(LT(r) \in LT(I)\)</span> but <span class="math inline">\(LT(r) \not\in \langle LT(g_1), \ldots, LT(g_m) \rangle\)</span>.</li>
+<li class="fragment">Contradiction!</li>
+</ul></li>
+<li class="fragment"><span class="math inline">\(G\)</span> is called a <font color="red">Gröbner basis</font> of <span class="math inline">\(I\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="s-polynomials" class="slide level2 center">
+<h2>S-Polynomials</h2>
+<p>Take two polynomials <span class="math inline">\(g_1, g_2\)</span>. <span class="math display">\[S(g_1, g_2) = \frac{L(g_1, g_2)}{LT(g_1)} g_1 - \frac{L(g_1, g_2)}{LT(g_2)} g_2 \]</span></p>
+<ul>
+<li><span class="math inline">\(L(g_1, g_2)\)</span> is the smallest degree monomial divisible by both <span class="math inline">\(LT(g_1)\)</span> and <span class="math inline">\(LT(g_2)\)</span>.</li>
+<li><span class="math inline">\(LT(g_1) = a_1 x^{\alpha_1}, LT(g_2) = a_2 x^{\alpha_2}\)</span>.
+<ul>
+<li><span class="math inline">\(L(g_1, g_2) = x^{\max(\alpha_1, \alpha_2)}\)</span>.</li>
+</ul></li>
+<li>Forces cancellation of the leading terms.</li>
+</ul>
+</section>
+<section class="slide level2 center">
+
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(g_1 = \color{red}{x y^2} - x - y, g_2= \color{red}{x^2 y} - x - y\)</span>.</li>
+<li class="fragment"><span class="math inline">\(L(g_1, g_2)=x^2y^2\)</span>.</li>
+<li class="fragment"><span class="math inline">\(S(g_1, g_2) = \frac{x^2y^2}{xy^2} (g_1) - \frac{x^2y^2}{x^2y} (g_2)\)</span>
+<ul>
+<li class="fragment"><span class="math inline">\(=\color{red}{x^2 y^2} - x^2 - x y - \color{red}{x^2 y^2} + x y + y^2\)</span></li>
+<li class="fragment"><span class="math inline">\(= y^2 - x^2\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="s-polynomials-cont" class="slide level2 center">
+<h2>S-Polynomials (cont)</h2>
+<div>
+<ul>
+<li class="fragment">S-polynomials capture the result of cancellation:</li>
+<li class="fragment">Suppose <span class="math inline">\(LM(p_i) = \vec{x}^\delta\)</span> for <span class="math inline">\(i = 1,\ldots, m\)</span>.</li>
+<li class="fragment">However, <span class="math inline">\(LM(\sum_{i=1}^m p_i) \prec \vec{x}^{\delta}\)</span>,
+<ul>
+<li class="fragment">It follows that <span class="math inline">\(\sum_{i=1}^m p_i = \sum_{i=1}^m \sum_{j &gt; i} c_{i,j} S(p_i, p_j)\)</span>, for some <span class="math inline">\(c_{i,j} \in K\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="buchbergers-criterion" class="slide level2 center">
+<h2>Buchberger’s Criterion</h2>
+<p>A basis <span class="math inline">\(I = \langle g_1, \ldots, g_m \rangle\)</span> is a Gröbner basis if and only if</p>
+<ul>
+<li>For every <span class="math inline">\(g_i, g_j,\ (i \not= j)\)</span>, reminder of <span class="math inline">\(S(g_i, g_j)\)</span> upon division by <span class="math inline">\(g_1, \ldots, g_m\)</span> is <span class="math inline">\(0\)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Previously, <span class="math inline">\(I = \langle x y^2 - x - y, x^2 y - x - y \rangle\)</span>, not a Gröbner basis.</p></li>
+<li><p><span class="math inline">\(x^2 - y^2 \in I\)</span> but reminder of <span class="math inline">\(x^2 - y^2\)</span> is non-zero.</p></li>
+<li><p>However, <span class="math inline">\(I = \langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle\)</span> is a Gröbner basis.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a></span>
+<span id="cb2-2"><a href=""></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb2-3"><a href=""></a><span class="im">from</span> sympy.abc <span class="im">import</span> x, y</span>
+<span id="cb2-4"><a href=""></a></span>
+<span id="cb2-5"><a href=""></a>F <span class="op">=</span> [x <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span>  <span class="op">-</span>x <span class="op">-</span> y , x<span class="op">**</span><span class="dv">2</span><span class="op">*</span>y <span class="op">-</span>x <span class="op">-</span>y]</span>
+<span id="cb2-6"><a href=""></a>G <span class="op">=</span> sp.Gr<span class="op">&amp;</span>ouml<span class="op">;</span>bner(F, x, y, order<span class="op">=</span><span class="st">'grlex'</span>,domain<span class="op">=</span><span class="st">'C'</span>)</span>
+<span id="cb2-7"><a href=""></a><span class="bu">print</span>(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Result: <span class="math inline">\(\langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle\)</span>.</p>
+<ul>
+<li><span class="math inline">\(S(x^2-y^2, xy^2-x-y) = y^4 -x^2 - xy\)</span>
+<ul>
+<li><span class="math inline">\(= y \times (y^3 - x - y) + 1 \times (x^2 - y^2) + 0\)</span>.</li>
+<li>Reminder is zero <span class="math inline">\(\checkmark\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(S(y^3-x-y, x^2-y^2) = y^5 - x^3 - x^2 y\)</span>
+<ul>
+<li><span class="math inline">\(=y^2(y^3 - x - y) - (x+ y) (x^2 - y^2) + 0\)</span>.</li>
+<li>Reminder is zero <span class="math inline">\(\checkmark\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="buchbergers-algorithm" class="slide level2 smaller center">
+<h2>Buchberger’s Algorithm</h2>
+<ul>
+<li>An algorithm for constructing Gröbner basis.
+<ul>
+<li>Input <span class="math inline">\(I = \langle g_1, \ldots, g_m \rangle\)</span>
+<ul>
+<li>Monomial order <span class="math inline">\(\prec\)</span>.</li>
+</ul></li>
+<li>Output <span class="math inline">\(\langle f_1, \ldots, f_K \rangle\)</span> - Gröbner basis for <span class="math inline">\(I\)</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li class="fragment"><p><span class="math inline">\(I_0 = \langle g_1, \ldots, g_m \rangle\)</span>.</p></li>
+<li class="fragment"><p>Let <span class="math inline">\(I_j = \langle p_1, \ldots, p_l\rangle\)</span>.</p></li>
+<li class="fragment"><p>Check if current basis is Gröbner.</p>
+<ul>
+<li class="fragment">Compute <span class="math inline">\(S(p_i, p_j)\)</span> for each <span class="math inline">\(i \not= j\)</span>.</li>
+<li class="fragment">Compute reminder of <span class="math inline">\(S(p_i, p_j)\)</span> wrt <span class="math inline">\(p_1, \ldots, p_l\)</span>.</li>
+<li class="fragment"><span class="math inline">\(I_{j+1} = \langle p_1, \ldots, p_l, r_{i,j} \rangle\)</span>.</li>
+</ul></li>
+<li class="fragment"><p>If all S-polynomials leave a reminder of <span class="math inline">\(0\)</span>, then we have a Gröbner basis.</p></li>
+<li class="fragment"><p><font color="red"> Termination? </font></p></li>
+</ul>
+</div>
+</section>
+<section id="complexity-of-gröbner-basis" class="slide level2 center">
+<h2>Complexity of Gröbner Basis</h2>
+<ul>
+<li>Ideal membership is known to be EXPSPACE-complete.
+<ul>
+<li>Ernst Mayr, Journal of Complexity, 1997.</li>
+</ul></li>
+<li>Gröbner basis can be quite expensive.
+<ul>
+<li>Bound on the degree of polynomials is very high.</li>
+<li>See Thomas Dube, SIAM J. of Comp. 1990.</li>
+</ul></li>
+<li>Büchberger Algorithm has</li>
+</ul>
+</section>
+<section id="gröbner-basis-2" class="slide level2 center">
+<h2>Gröbner Basis</h2>
+<ul>
+<li>Expensive computation in the worst case.
+<ul>
+<li>Best algorithms include Faguere’s F5 algorithm.</li>
+</ul></li>
+<li>It is implemented in most computer algebra systems.</li>
+<li>Ideas to speed up:
+<ul>
+<li>Dynamically alter the monomial ordering on the fly.</li>
+<li>Avoid unnecessary S-polynomial reductions.</li>
+<li>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="weak-nullstellensatz" class="slide level2 center">
+<h2>Weak Nullstellensatz</h2>
+<ul>
+<li><p>Let <span class="math inline">\(p_1 = 0, \ldots, p_m = 0\)</span> represent an inconsistent set of polynomial inequalities.</p></li>
+<li><p><span class="math inline">\(1 \in \langle p_1, \ldots, p_m \rangle\)</span>.</p></li>
+</ul>
+<p><strong>Corollary</strong> (Reduced) Gröbner basis must be <span class="math inline">\(\langle 1\rangle\)</span>.</p>
+</section>
+<section id="nullstellensatz" class="slide level2 center">
+<h2>Nullstellensatz</h2>
+<p><span class="math display">\[p_1 = 0, \ldots, p_m = 0  \models p = 0\]</span></p>
+<p><span class="math display">\[p^r \in \langle p_1, \ldots, p_m \rangle \]</span></p>
+<ul>
+<li>Rabinowitsch trick:
+<ul>
+<li>Compute Grobner basis of <span class="math inline">\(\langle p_1, \ldots, p_n, (1-y p) \rangle\)</span></li>
+<li><strong>Claim:</strong> Entailment holds iff <span class="math inline">\(1 \in \langle p_1, \ldots, p_n, (1-y p) \rangle\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="rabinowitsch-trick" class="slide level2 center">
+<h2>Rabinowitsch Trick</h2>
+<ul>
+<li><span class="math inline">\(p^r \in \langle p_1, \ldots, p_m \rangle\)</span> for some <span class="math inline">\(r
+\in \mathbb{N}\)</span></li>
+<li><span class="math inline">\(1 \in \langle p_1, \ldots, p_n, (1-y p) \rangle\)</span></li>
+</ul>
+<p><strong>Proof</strong> See chapter 3 of book/during lecture.</p>
+</section>
+<section id="operations-on-varieties" class="slide level2 center">
+<h2>Operations on Varieties</h2>
+<ul>
+<li>Algebraic Variety <span class="math inline">\(V\)</span>
+<ul>
+<li>Representation: Gröbner basis of the ideal $ (V)$.</li>
+</ul></li>
+<li>Intersection of varieties:</li>
+<li><span class="math inline">\(V_1 \cap V_2\)</span> – <span class="math inline">\(\mathsf{Gr&amp;ouml;bner}(G_1 \cup G_2)\)</span></li>
+<li>Union of varieties:
+<ul>
+<li><span class="math inline">\(V_1 \cup V_2\)</span> – <span class="math inline">\(G_1 \otimes G_2\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 center">
+
+<ul>
+<li>Inclusion Checking: <span class="math inline">\(V_1 \cup V_2\)</span>
+<ul>
+<li>Check that every generator in <span class="math inline">\(G_1\)</span> belongs to <span class="math inline">\(\langle G_2 \rangle\)</span></li>
+</ul></li>
+<li>Image computation:
+<ul>
+<li>Assertion: <span class="math inline">\(\varphi: g_1(\vec{x}) = 0\ \land\ \cdots\ \land\ g_m(\vec{x}) = 0\)</span></li>
+<li>Transition relation <span class="math inline">\(\rho:\ p_1(\vec{x}, \vec{x}') = 0\ \land\ \cdots\ p_m(\vec{x}, \vec{x}') = 0\)</span>.</li>
+<li>Post-Condition: <span class="math inline">\((\exists\ \vec{x})\ \varphi[\vec{x}] \land\ \rho[\vec{x}, \vec{x}']\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="elimination-theory" class="slide level2 center">
+<h2>Elimination Theory</h2>
+<p>Let <span class="math inline">\(I: \langle p_1, \ldots, p_m \rangle\)</span> be an ideal in <span class="math inline">\(K[x_1, \ldots, x_n, y_1, \ldots, y_m]\)</span>.</p>
+<div>
+<ul>
+<li class="fragment">Compute Gröbner basis <span class="math inline">\(G\)</span> under an <em>elimination order</em>
+<ul>
+<li class="fragment">Eg., lexicographic ordering: <span class="math inline">\(x_1 &gt; \cdots &gt; x_n &gt; y_1 &gt; \cdots &gt; y_m\)</span></li>
+</ul></li>
+<li class="fragment">Take all polynomials involving <span class="math inline">\(y_1, \ldots, y_m\)</span>:
+<ul>
+<li class="fragment"><span class="math inline">\(\widehat{G} = G \cap K[y_1, \ldots, y_m]\)</span></li>
+</ul></li>
+<li class="fragment">Claim: <span class="math inline">\(I \cap K[y_1, \ldots, y_m] = \langle \widehat{G} \rangle\)</span>.</li>
+</ul>
+</div>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="lec3_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="lec3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="lec3_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="lec3_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': true,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
