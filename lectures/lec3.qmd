@@ -561,3 +561,11 @@ Let $I: \langle p_1, \ldots, p_m \rangle$ be an ideal in $K[x_1, \ldots, x_n, y_
 - Claim: $I \cap K[y_1, \ldots, y_m] = \langle \widehat{G} \rangle$.
 
 :::
+
+## Next Session
+
+- Tuesday the 15th.
+ - Will try to show some calculations for programs and differential equations.
+
+- Move on to talking about inequalities/semi-algebraic sets.
+
