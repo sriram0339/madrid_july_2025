@@ -198,14 +198,14 @@ $$
    - Abstract Interpretation over the space of Ideals.
    - Widening operators over decreasing chains of ideals.
 
- - Markus Mueller-Olm and Siedel, 2004: 
+ - Markus Mueller-Olm and Seidel, 2004: 
    - Backward relational abstract interpretation.
 
 --- 
 
  - Trying to make it more efficient: 
    - ``Pseudo-Ideals'': Michael Colon, 2004.
-   - Backwards abstract interpreatation: Cachera et al, 2012. 
+   - Backwards abstract interpretation: Cachera et al, 2012. 
 
 ## Strongest Algebraic Invariants
 
@@ -385,7 +385,7 @@ $$\begin{array}{l}
 q_0 = (1-p)^2,\ q_1 =  2 p(1-p),\ q_2 = p^2\,.
 \end{array}$$
 
-``Eliminiate'' $p$: 
+``Eliminate'' $p$: 
 
 $$ q_0 + q_1 + q_2 = 1,\ 4q_0 = (2 - q_1 - 2 q_2)^2$$
 
