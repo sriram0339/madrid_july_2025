@@ -271,7 +271,7 @@ Take $I = \langle x y^2 - x - y, x^2 y - x - y \rangle$.
 
 :::{.incremental}
 
-- Formulated by Buchberger in 1965: Named after his PhD advisor Wolfgang Gröbner! 
+- Formulated by B&uuml;chberger in 1965: Named after his PhD advisor Wolfgang Gröbner! 
 - Es un gran ganga!
 - We are given an ideal $I=\left\langle g_1, \ldots, g_m \right\rangle$.
 - Polynomial division is unable to test for membership.
@@ -360,7 +360,7 @@ _Example:_  $I = \{ x^2, x^2 y, 2x^3, \frac{1}{2} x^2 y^2 + x^2 + x^2 y, \cdots\
 ## Proof (Continued)
 Claim: $I = \langle g_1, \ldots, g_k \rangle$
 
-:::{.incremental}
+:::{.incremental style="font-size: 0.85em"}
 - $\langle g_1, \ldots, g_k \rangle \subseteq I$, since $g_1, \ldots, g_k \in I$.
 - To prove: $I \subseteq \langle g_1, \ldots, g_k \rangle$.
   - Contradiction: let $p \in I$ but $p \not\in \langle g_1, \ldots, g_k\rangle$.
@@ -368,7 +368,7 @@ Claim: $I = \langle g_1, \ldots, g_k \rangle$
   - $p = \sum_{i=1}^k q_i g_i + r$, where $r \not= 0$. 
   - $r = \left( p - \sum_{i=1}^k q_i g_i\right) \in I$.
   - However, $LT(r)$ is not divisible by $LT(g_i)$. 
-  - $r \not\in \langle J \rangle$.
+  - $r \not\in I$.
   - Contradiction!
 :::
 
@@ -424,7 +424,7 @@ $$S(g_1, g_2) = \frac{L(g_1, g_2)}{LT(g_1)} g_1 - \frac{L(g_1, g_2)}{LT(g_2)} g_
 
 :::
 
-## Buchberger's Criterion
+## B&uuml;chberger's Criterion
 
 A basis $I = \langle g_1, \ldots, g_m \rangle$ is a Gr&ouml;bner basis if and only if 
 
@@ -461,7 +461,7 @@ Result:  $\langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle$.
     - $=y^2(y^3 - x - y) - (x+ y) (x^2 - y^2) + 0$.
     - Reminder is zero $\checkmark$.
 
-## Buchberger's Algorithm {.smaller}
+## B&uuml;chberger's Algorithm {.smaller}
 
 - An algorithm for constructing Gr&ouml;bner basis.
   - Input $I = \langle g_1, \ldots, g_m \rangle$
@@ -487,7 +487,7 @@ Result:  $\langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle$.
 - Gr&ouml;bner basis can be quite expensive.
   - Bound on the degree of polynomials is very high.
   - See Thomas Dube, SIAM J. of Comp. 1990.
-- B&uuml;chberger Algorithm has 
+- B&uuml;chberger Algorithm complexity bounded in EXPSPACE (?).
 
 ## Gr&ouml;bner Basis
 
@@ -539,7 +539,7 @@ $$p^r \in \langle p_1, \ldots, p_m \rangle $$
 
 --- 
 
-- Inclusion Checking: $V_1 \cup V_2$
+- Inclusion Checking: $V_1 \subseteq V_2$
   - Check that every generator in $G_1$ belongs to $\langle G_2 \rangle$
 
 - Image computation:  

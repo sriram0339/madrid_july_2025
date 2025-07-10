@@ -493,7 +493,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <h2>Gröbner Basis</h2>
 <div>
 <ul>
-<li class="fragment">Formulated by Buchberger in 1965: Named after his PhD advisor Wolfgang Gröbner!</li>
+<li class="fragment">Formulated by Büchberger in 1965: Named after his PhD advisor Wolfgang Gröbner!</li>
 <li class="fragment">Es un gran ganga!</li>
 <li class="fragment">We are given an ideal <span class="math inline">\(I=\left\langle g_1, \ldots, g_m \right\rangle\)</span>.</li>
 <li class="fragment">Polynomial division is unable to test for membership.
@@ -605,7 +605,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <section id="proof-continued" class="slide level2 center">
 <h2>Proof (Continued)</h2>
 <p>Claim: <span class="math inline">\(I = \langle g_1, \ldots, g_k \rangle\)</span></p>
-<div>
+<div style="font-size: 0.85em">
 <ul>
 <li class="fragment"><span class="math inline">\(\langle g_1, \ldots, g_k \rangle \subseteq I\)</span>, since <span class="math inline">\(g_1, \ldots, g_k \in I\)</span>.</li>
 <li class="fragment">To prove: <span class="math inline">\(I \subseteq \langle g_1, \ldots, g_k \rangle\)</span>.
@@ -615,7 +615,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <li class="fragment"><span class="math inline">\(p = \sum_{i=1}^k q_i g_i + r\)</span>, where <span class="math inline">\(r \not= 0\)</span>.</li>
 <li class="fragment"><span class="math inline">\(r = \left( p - \sum_{i=1}^k q_i g_i\right) \in I\)</span>.</li>
 <li class="fragment">However, <span class="math inline">\(LT(r)\)</span> is not divisible by <span class="math inline">\(LT(g_i)\)</span>.</li>
-<li class="fragment"><span class="math inline">\(r \not\in \langle J \rangle\)</span>.</li>
+<li class="fragment"><span class="math inline">\(r \not\in I\)</span>.</li>
 <li class="fragment">Contradiction!</li>
 </ul></li>
 </ul>
@@ -681,8 +681,8 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 </ul>
 </div>
 </section>
-<section id="buchbergers-criterion" class="slide level2 center">
-<h2>Buchberger’s Criterion</h2>
+<section id="büchbergers-criterion" class="slide level2 center">
+<h2>Büchberger’s Criterion</h2>
 <p>A basis <span class="math inline">\(I = \langle g_1, \ldots, g_m \rangle\)</span> is a Gröbner basis if and only if</p>
 <ul>
 <li>For every <span class="math inline">\(g_i, g_j,\ (i \not= j)\)</span>, reminder of <span class="math inline">\(S(g_i, g_j)\)</span> upon division by <span class="math inline">\(g_1, \ldots, g_m\)</span> is <span class="math inline">\(0\)</span>.</li>
@@ -702,7 +702,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <span id="cb2-3"><a href=""></a><span class="im">from</span> sympy.abc <span class="im">import</span> x, y</span>
 <span id="cb2-4"><a href=""></a></span>
 <span id="cb2-5"><a href=""></a>F <span class="op">=</span> [x <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span>  <span class="op">-</span>x <span class="op">-</span> y , x<span class="op">**</span><span class="dv">2</span><span class="op">*</span>y <span class="op">-</span>x <span class="op">-</span>y]</span>
-<span id="cb2-6"><a href=""></a>G <span class="op">=</span> sp.Gr<span class="op">&amp;</span>ouml<span class="op">;</span>bner(F, x, y, order<span class="op">=</span><span class="st">'grlex'</span>,domain<span class="op">=</span><span class="st">'C'</span>)</span>
+<span id="cb2-6"><a href=""></a>G <span class="op">=</span> sp.Groebner(F, x, y, order<span class="op">=</span><span class="st">'grlex'</span>,domain<span class="op">=</span><span class="st">'C'</span>)</span>
 <span id="cb2-7"><a href=""></a><span class="bu">print</span>(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Result: <span class="math inline">\(\langle y^3 - x - y, x^2 - y^2, x y^2 - x - y \rangle\)</span>.</p>
 <ul>
@@ -718,8 +718,8 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 </ul></li>
 </ul>
 </section>
-<section id="buchbergers-algorithm" class="slide level2 smaller center">
-<h2>Buchberger’s Algorithm</h2>
+<section id="büchbergers-algorithm" class="slide level2 smaller center">
+<h2>Büchberger’s Algorithm</h2>
 <ul>
 <li>An algorithm for constructing Gröbner basis.
 <ul>
@@ -757,7 +757,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <li>Bound on the degree of polynomials is very high.</li>
 <li>See Thomas Dube, SIAM J. of Comp. 1990.</li>
 </ul></li>
-<li>Büchberger Algorithm has</li>
+<li>Büchberger Algorithm complexity bounded in EXPSPACE (?).</li>
 </ul>
 </section>
 <section id="gröbner-basis-2" class="slide level2 center">
@@ -813,7 +813,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <li>Representation: Gröbner basis of the ideal $ (V)$.</li>
 </ul></li>
 <li>Intersection of varieties:</li>
-<li><span class="math inline">\(V_1 \cap V_2\)</span> – <span class="math inline">\(\mathsf{Gr&amp;ouml;bner}(G_1 \cup G_2)\)</span></li>
+<li><span class="math inline">\(V_1 \cap V_2\)</span> – <span class="math inline">\(\mathsf{Groebner}(G_1 \cup G_2)\)</span></li>
 <li>Union of varieties:
 <ul>
 <li><span class="math inline">\(V_1 \cup V_2\)</span> – <span class="math inline">\(G_1 \otimes G_2\)</span>.</li>
@@ -823,7 +823,7 @@ f \xrightarrow{y - 2} &amp; (\color{red}{2x^2 y} + 6 y^2 + 4x y - 2 x) - 2x^2(y 
 <section class="slide level2 center">
 
 <ul>
-<li>Inclusion Checking: <span class="math inline">\(V_1 \cup V_2\)</span>
+<li>Inclusion Checking: <span class="math inline">\(V_1 \subseteq V_2\)</span>
 <ul>
 <li>Check that every generator in <span class="math inline">\(G_1\)</span> belongs to <span class="math inline">\(\langle G_2 \rangle\)</span></li>
 </ul></li>
