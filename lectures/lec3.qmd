@@ -447,7 +447,7 @@ import sympy as sp
 from sympy.abc import x, y
 
 F = [x * y**2  -x - y , x**2*y -x -y]
-G = sp.Gr&ouml;bner(F, x, y, order='grlex',domain='C')
+G = sp.Groebner(F, x, y, order='grlex',domain='C')
 print(G)
 ```
 
@@ -533,7 +533,7 @@ $$p^r \in \langle p_1, \ldots, p_m \rangle $$
   - Representation: Gr&ouml;bner basis of the ideal $
   \mathsf{Id}(V)$.
 -  Intersection of varieties: 
-  - $V_1 \cap V_2$ -- $\mathsf{Gr&ouml;bner}(G_1 \cup G_2)$
+  - $V_1 \cap V_2$ -- $\mathsf{Groebner}(G_1 \cup G_2)$
 - Union of varieties:
   - $V_1 \cup V_2$ -- $G_1 \otimes G_2$.
 
