@@ -2,20 +2,20 @@
 title: Algebraic and Semi-Algebraic Reasoning For Formal Methods
 subtitle: Lecture 4 -  Applications of Gr&ouml;bner Bases and Sum of Squares.
 author: Sriram Sankaranarayanan
-format:
-  revealjs:
-    theme: serif
-    center: true
-    transition: slide
-    incremental: false
-    slide-number: c/t
-    pdf-separate-fragments: true
-    html-math-method:
-      method: mathjax
 # format:
-# beamer: 
-#   navigation: horizontal
-#   theme: metropolis
+#   revealjs:
+#     theme: serif
+#     center: true
+#     transition: slide
+#     incremental: false
+#     slide-number: c/t
+#     pdf-separate-fragments: true
+#     html-math-method:
+#       method: mathjax
+format:
+  beamer: 
+    navigation: horizontal
+    theme: metropolis
 ---
 
 
@@ -249,15 +249,16 @@ Cf. Manuel Kauers, How to use a Cylindrical Algebraic Decomposition.
 
 ## CAD Figure   
 
-![](figures/kauers-ball-cad.png){width=80% align="center"}
+![](figures/kauers-ball-cad.png){width="100%" fig-align="center"}
 
 ## Cylindrical Algebraic Decomposition: Complexity
 
 - CAD is a very powerful tool for working with semi-algebraic sets.
 
-- However, its complexity is double exponential in number of variables.
+- However, its complexity is double exponential in number of variables. 
 
-- Adapt CAD to check polynomial positivity in single exp. time.
+  - The full CAD algorithm is not necessary to check if $\exists \vec{x}, p(\vec{x}) < 0$.
+
 
 # Sum Of Squares Techniques 
 
@@ -338,7 +339,7 @@ $$p = \sum_{j=1}^k \frac{\sigma_{j}^2}{\xi_j^2}$$
   - Reduction to semi-definite programming (convex optimization).
 
 - Positivstellensatz using Sum of Squares.
-  - Laserre's Hierarchy.
+  - Lasserre Hierarchy.
   - Next lecture. 
 
 ## Checking SOS
@@ -346,10 +347,79 @@ $$p = \sum_{j=1}^k \frac{\sigma_{j}^2}{\xi_j^2}$$
 __Input:__ $p \in \Re[x_1, \ldots, x_n]$.
 
 
-__Output:__ Is $p = \sigma_1^2 + \cdots + \sigma_k^2$ for some $\sigma_1, \ldots, \sigma_k \in \Re[x_1, \ldots, x_n]$.
+__Output:__ Is $p = \sigma_1^2 + \cdots + \sigma_k^2$ for  $\sigma_1, \ldots, \sigma_k \in \Re[x_1, \ldots, x_n]$?
 
-:::{.fragment}
+:::{.fragment style="font-size:0.75em"}
 
 <font color="red">Idea:</font> quadratic forms but lift to a higher dimensional space.
 
+- Originally proposed by N. Shor, 1987 (In Russian).
+- Rediscovered by Lasserre'2001 and Parrilo'2003.
+  - Global Optimization with Polynomials and the Problem of Moments, Jean B. Lasserre, SIAM J. Opt., 2001.
+  - Semidefinite programming relaxations for semialgebraic problems, Pablo Parrilo,  Math. Prog. Ser. B, 2003.
+
 :::
+
+## Checking Sum of Squares : Idea
+
+__Idea__ Write a non-quadratic polynomial as a quadratic form.
+
+__Example__ $x^4 y^2 - 2 x^2 y^2 + 2 y^2 - 2 xy + x^2 + 9$
+
+Let $\mu(x, y) = \left( \begin{matrix}
+x^2 y \\
+xy \\
+x\\
+y \\
+1\\
+\end{matrix}\right)$, Write $p = \mu^{\top} Q \mu$.
+
+## Example (Continued)
+
+$p = x^4 y^2 - 2 x^2 y^2 + 2 y^2 - 2 xy + x^2 + 9$
+
+$$\begin{array}{l|c c c c c}
+ & x^2 y & xy & x & y & 1 \\ 
+ \hline 
+x^2y & 1 & 0 & 0 & -1 & 0 \\ 
+xy & 0 & 0 &  0 & 0 & 0  \\ 
+x &  0 & 0 & 1 & -1 & 0 \\ 
+y &  -1 & 0 & -1 & 2 & 0 \\ 
+1 & 0 & 0 & 0 & 0 & 9\\ 
+\end{array}$$
+
+__Problem:__ $Q$ is not unique.
+
+## Example: Non-Uniqueness
+
+$p = x^4 y^2 - 2 x^2 y^2 + 2 y^2 - 2 xy + x^2 + 9$
+
+$$\begin{array}{l|c c c c c}
+ & x^2 y & xy & x & y & 1 \\ 
+ \hline 
+x^2y & 1 & 0 & 0 & 0 & 0 \\ 
+xy & 0 & -2 &  0 & 0 & 0  \\ 
+x &  0 & 0 & 1 & -1 & 0 \\ 
+y &  0 & 0 & -1 & 2 & 0 \\ 
+1 & 0 & 0 & 0 & 0 & 9\\ 
+\end{array}$$
+
+$Q$ is not a psd matrix.
+
+## Basic Idea.
+
+- Fix a vector of monomials $\mu(x_1, \ldots, x_n)$.
+
+- Try to write polynomial $p$ as
+   - $p = \mu^\top Q \mu$ 
+   - $Q$ is a positive semidefinite matrix.
+
+- However, there are infinitely many ways of doing so.
+  - We need to discover one way to do it!
+
+
+## Next Session
+  
+  - How to check if a polynomial is SOS?
+    - Semi-Definite Programming.
+  - Positivstellensatz. 
