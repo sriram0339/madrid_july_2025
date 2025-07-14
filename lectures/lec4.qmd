@@ -2,20 +2,20 @@
 title: Algebraic and Semi-Algebraic Reasoning For Formal Methods
 subtitle: Lecture 4 -  Applications of Gr&ouml;bner Bases and Sum of Squares.
 author: Sriram Sankaranarayanan
-# format:
-#   revealjs:
-#     theme: serif
-#     center: true
-#     transition: slide
-#     incremental: false
-#     slide-number: c/t
-#     pdf-separate-fragments: true
-#     html-math-method:
-#         method: mathjax
 format:
- beamer: 
-   navigation: horizontal
-   theme: metropolis
+  revealjs:
+    theme: serif
+    center: true
+    transition: slide
+    incremental: false
+    slide-number: c/t
+    pdf-separate-fragments: true
+    html-math-method:
+      method: mathjax
+# format:
+# beamer: 
+#   navigation: horizontal
+#   theme: metropolis
 ---
 
 
@@ -232,13 +232,32 @@ $$p_1 \geq 0\ \land\ \cdots\ \land p_m \geq 0\ \models\ p \geq 0\,. $$
 
 ## Cylindrical Algebraic Decomposition (CAD)
 
-__TODO__
+Given polynomials $p_1, \ldots, p_m$ in $\Re[x_1, \ldots, x_n]$,
+
+ - We decompose $\Re^n$ into finitely many disjoint cells.
+ - Each cell is semi-algebraic.
+ - Each cell is ``sign invariant''.
+ - The decomposition is _cylindrical_.
+
+## Cylindrical  Decomposition
+
+- Decompose $x_n$ into finitely many points and intervals.
+    $$\Re = (-\infty, a_1) \cup [a_1, a_1] \cup (a_1, a_2) \cup [a_2, a_2] \cup \cdots $$
+- For each point/interval, we recursively associate a ``stack of regions'' involving $x_1, \ldots, x_{n-1}$. 
+
+Cf. Manuel Kauers, How to use a Cylindrical Algebraic Decomposition.
+
+## CAD Figure   
+
+![](figures/kauers-ball-cad.png){width=80% align="center"}
 
 ## Cylindrical Algebraic Decomposition: Complexity
 
 - CAD is a very powerful tool for working with semi-algebraic sets.
 
-- However, its complexity is (__TODO__)
+- However, its complexity is double exponential in number of variables.
+
+- Adapt CAD to check polynomial positivity in single exp. time.
 
 # Sum Of Squares Techniques 
 
