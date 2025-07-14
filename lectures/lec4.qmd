@@ -1,0 +1,336 @@
+---
+title: Algebraic and Semi-Algebraic Reasoning For Formal Methods
+subtitle: Lecture 4 -  Applications of Gr&ouml;bner Bases and Sum of Squares.
+author: Sriram Sankaranarayanan
+# format:
+#   revealjs:
+#     theme: serif
+#     center: true
+#     transition: slide
+#     incremental: false
+#     slide-number: c/t
+#     pdf-separate-fragments: true
+#     html-math-method:
+#         method: mathjax
+format:
+ beamer: 
+   navigation: horizontal
+   theme: metropolis
+---
+
+
+## Operations on Varieties
+
+- Algebraic Variety $V$
+  - Representation: Gr&ouml;bner basis of the ideal $\mathsf{Id}(V)$.
+-  Intersection of varieties: 
+   - $V_1 \cap V_2$ -- $\mathsf{Groebner}(G_1 \cup G_2)$
+   - Why do we need to compute Gr&ouml;bner basis again?
+- Union of varieties:
+  - $V_1 \cup V_2$ -- $G_1 \otimes G_2$ or $\langle G_1 \rangle \cap \langle G_2 \rangle$.
+
+## Unions of Varieties
+
+\newcommand\Var{\mathsf{Var}}
+
+Two ways of computing intersections: 
+
+$$\begin{array}{l}
+\Var(\langle f_1, \ldots, f_j \rangle) \cup \Var(\langle g_1, \ldots, g_k \rangle)  \\ 
+\;\;\;\;\;\; = \Var(\langle f_1g_1, f_1 g_2, \ldots, f_jg_k \rangle)\\
+\;\;\;\;\;\; = \Var(\langle f_1, \ldots, f_j\rangle \cap \langle g_1, \ldots, g_k \rangle)
+\end{array}
+$$
+
+- How do we compute ideal intersections?
+- Which one is better?
+
+## Ideal Intersection 
+
+**Trick** Let $t$ be a _fresh variable_.
+
+$$\begin{array}{l}
+\langle f_1, \ldots, f_j\rangle \cap \langle g_1, \ldots, g_k \rangle =  \\ 
+\;\; \langle t f_1, \ldots, t f_j, (1-t)g_1, \ldots, (1-t)g_k \rangle \cap K[\vec{x}] \\ 
+\end{array}$$
+
+- Prove that this computes ideal intersection
+- Eliminate the variable $t$.
+  - We will see how to do so soon.
+
+## Ideal Products
+:::{style="font-size: 0.85em"}
+Let $p \in \langle f_1, \ldots, f_j\rangle \cap \langle g_1, \ldots, g_k \rangle$ then $p \in \langle f_1g_1, f_1g_2,\ldots, f_jg_k\rangle$?
+
+:::{.fragment }
+- Not necessarily!
+- However, $p^2 \in \langle f_1g_1, f_1g_2,\ldots, f_jg_k\rangle?$.
+:::
+
+:::{.fragment}
+
+If $p \in \langle f_1g_1, f_1g_2,\ldots, f_jg_k\rangle$,   is  $p \in \langle f_1, \ldots, f_j\rangle \cap \langle g_1, \ldots, g_k \rangle$?
+
+:::
+
+:::
+
+## Inclusion Checking 
+
+- Algebraic Varieties: $V_1, V_2$.
+- Check if $V_1 \subseteq V_2$.
+  - Let $\langle G_1 \rangle, \langle G_2 \rangle$ be the Gr&ouml;bner bases. 
+
+:::{.fragment}
+  
+   - If $V_1 \subseteq V_2$ then $\langle G_2 \rangle \subseteq \langle G_1 \rangle$.
+   -  Each gen. in $G_2$ reduces to $0$ under reduction by $G_1$?
+:::
+
+
+##  Image Computation
+
+- Image computation:  
+  - Assertion $\varphi: g_1(\vec{x}) = 0\ \land\ \cdots\ \land\ g_m(\vec{x}) = 0$
+  - Transition relation $\rho:\ p_1(\vec{x}, \vec{x}') = 0\ \land\ \cdots\ p_m(\vec{x}, \vec{x}') = 0$.
+  - Post-Condition: $(\exists\ \vec{x}_0)\ \varphi[\vec{x}_0] \land\ \rho[\vec{x}_0, \vec{x}]$
+
+## Elimination Theory
+
+Let $I: \langle p_1, \ldots, p_m \rangle$ be an ideal in $K[x_1, \ldots, x_n, y_1, \ldots, y_m]$.
+
+:::{.incremental}
+- Compute Gr&ouml;bner basis $G$ under an _elimination order_ 
+  - Eg., lexicographic ordering: $x_1 > \cdots > x_n > y_1 > \cdots > y_m$
+
+- Take all polynomials involving $y_1, \ldots, y_m$:
+  - $\widehat{G} = G \cap K[y_1, \ldots, y_m]$
+
+- Claim: $I \cap K[y_1, \ldots, y_m] = \langle \widehat{G} \rangle$.
+
+:::
+
+## Demonstration
+
+Demo of using abstract interpretation to calculate polynomial invariants. 
+
+  - Jupyter notebook!
+
+# Semi-Algebraic Reasoning 
+
+
+## Lagrangian Reasoning for Inequalities
+
+$$ \begin{array}{rcll}
+2 x - 3 y + 4 z & \geq & 5 & \leftarrow e_1 \\ 
+3 x - 2 y + 0 z & \geq & 7 & \leftarrow e_2\\
+              z & \geq & 3 & \leftarrow e_3 \\    
+\hline 
+ & & (\Rightarrow) \\
+x - y + z & \geq & 3 
+\\
+\end{array}$$
+
+:::{.fragment}
+$$( x - y + z - 3) = \frac{1}{5} ( e_1 + e_2 + e_3 )$$
+:::
+
+## Lagrangian Reasoning (Continued)
+
+$$ \begin{array}{c}
+ e \geq 0,\ \lambda \geq 0\\ 
+ \hline 
+ \lambda e \geq 0 \\ 
+ \end{array}$$ 
+
+:::{.fragment}
+  $$ \begin{array}{c}
+ e_1 \geq 0,\ e_2 \geq 0\\ 
+ \hline 
+ e_1 + e_2 \geq 0 \\ 
+ \end{array}$$ 
+
+:::
+
+:::{.fragment}
+ $$ \begin{array}{c}
+ \\
+ \hline 
+ 1  \geq 0 \\
+ \end{array}$$ 
+
+
+:::
+
+## Conic Combination 
+
+Consider linear inequalities $$e_1 \geq 0, \ldots, e_m \geq 0$$
+
+Conic combination: 
+
+$$ \lambda_0 + \lambda_1 e_1 + \cdots +  \lambda_m e_m \leq 0$$ 
+
+wherein $\lambda_i \geq 0$.
+
+## Farkas' Lemma 
+
+$$\varphi:\ e_1 \geq 0\ \land\ e_2 \geq 0\ \cdots\ \land\ e_m \geq 0$$
+
+
+:::{.fragment}
+ - $\varphi$ is unsatisfiable iff $-1 \geq 0$ lies in conic combination.
+ - If $\varphi$ is satisfiable:  $\varphi \models e \geq 0$ iff we can $e  = \sum_{i=1}^m \lambda_i e_i + \lambda_0$ 
+   -  $\lambda_0, \ldots, \lambda_m \geq 0$.
+ - Foundations of linear programming and duality theory. 
+   - Reference: V. Chvatal's amazing book on Linear Programming. 
+:::
+
+## Farkas' Lemma in Formal Methods
+
+- Vast literature on using Farkas' Lemma for 
+  - Invariant Synthesis: Colon + Sank. + Sipma' CAV 2003; Gulwani et al., Tiwari et al.,...
+  - Ranking Function Synthesis: Colon + Sipma, Podelski + Rybalchenko, Bradley + Manna, Cook + Rybalchenko + Podelski, ... 
+  - Cost analysis of programs
+  - Analysis of probabilistic programs
+  - Proof production in linear arithmetic SMT solver: [Reynolds+Tinelli] 
+
+## Beyond Farkas Lemma 
+
+\renewcommand\Re{\mathbb{R}}
+
+Proving entailment with polynomials:
+
+$$p_1 \geq 0, \cdots, p_m \geq 0\ \models\ p \geq 0 $$ 
+
+  - $p_1, \ldots, p_m \in \mathbb{R}[x_1, \ldots, x_n]$.
+  - Entailment over $\mathbb{R}^n$.
+
+_Positivstellensatz:_
+
+$$ p = \sigma_0 + \sigma_1 p_1 + \cdots + \sigma_m p_m $$ 
+where $\sigma_i$ are _positive polynomials_.
+
+## Polynomial Positivity Checking 
+
+- Check if a polynomial $p \in \Re[x_1, \ldots, x_n]$ is non-negative everywhere. 
+
+$$\forall\ x_1, \ldots, x_n \in \Re^n,\ p(x_1, \ldots, x_n ) \geq 0$$
+
+- Well known to be NP-hard. 
+
+  - Positive Definite: $p > 0$ for all $\vec{x} \not= 0$.
+  - Positive Semi-Definite: $p \geq 0$ for all $\vec{x}$.
+
+## Semi-Algebraic Entailment Checking 
+
+Given $p_1, \ldots, p_m, p \in \Re[x_1, \ldots, x_n]$, 
+check entailment:
+
+$$p_1 \geq 0\ \land\ \cdots\ \land p_m \geq 0\ \models\ p \geq 0\,. $$
+
+- Adapt Cylindrical Algebraic Decomposition.
+
+## Cylindrical Algebraic Decomposition (CAD)
+
+__TODO__
+
+## Cylindrical Algebraic Decomposition: Complexity
+
+- CAD is a very powerful tool for working with semi-algebraic sets.
+
+- However, its complexity is (__TODO__)
+
+# Sum Of Squares Techniques 
+
+## Sum of Squares (SOS)
+
+A polynomial $p$ is _sum of squares_ (SOS) iff 
+$$ p = \sigma_1^2 + \ldots + \sigma_k^2$$
+for some $k \geq 0$.
+
+  - $\sigma_1, \ldots, \sigma_k \in \Re[x_1, \ldots, x_n]$.
+
+## Positive Polynomials vs. Sum-Of-Squares 
+
+If $p$ is SOS then $p$ is a positive semi-definite.
+  
+   - Is the converse true?
+
+- _Theorem \# 1_ Any univariate polynomial is positive semi-definite iff it is SOS. 
+
+- _Theorem \# 2_ Any quadratic polynomial is positive semi-definite iff it is SOS.
+
+_TODO:_ Prove these in lecture. 
+
+--- 
+
+There exists a polynomial that is positive semidefinite but cannot be written as a sum of squares.
+
+_Motzkin Polynomial:_ 
+
+$p = x^4y^2 + x^2y^4 + 1 - 3 x^2 y^2 \succeq 0$
+
+- Prove that $p$ is positive semi-definite.
+- Prove that $p$ cannot be expressed as SOS. 
+
+## Quadratic Forms and Sum of Squares
+
+Quadratic polynomial $p(x_1, \ldots, x_n)$ can be written: 
+
+$$\left(\begin{array}{c} 1\\ x_1 \\ x_2 \\ \cdots\\ x_n \end{array}\right)^{\top}\ \left(\begin{matrix}
+Q_{11} & Q_{12} & \cdots & Q_{1,n+1}\\ 
+Q_{21}& Q_{22} & \cdots & Q_{2, n+1}\\ 
+\vdots & & \ddots & \vdots \\ 
+Q_{n+1,1} & Q_{n+1,2} & \cdots & Q_{n+1, n+1}\\
+\end{matrix}\right) \left(\begin{array}{c}  1\\ x_1 \\ x_2 \\ \cdots\\ x_n \end{array}\right)$$
+
+## SOS and PSD for Quadratic Forms{.smaller}
+
+A quadratic form $p(\vec{x}) = \vec{x}^\top Q \vec{x}$ is positive semidefinite iff all eigenvalues of $Q$ are non-negative. 
+
+:::{.fragment}
+__Proof:__ Suppose $Q\vec{v} = \lambda \vec{v}$, $\lambda$ must be real and furthermore, $\vec{v}^{\top} Q \vec{v} = \lambda \vec{v}^{\top}\vec{v}$.  
+ 
+($\Rightarrow$)\ Let $p$ be a positive semi-definite polynomial, but $Q$ have a negative eigenvalue $\lambda < 0$. Then $p(\vec{v}) = \lambda \vec{v}^{\top}\vec{v} < 0$.
+This is a contradiction. 
+
+($\Leftarrow$) Suppose all eigen values of $Q$ are non-negative. Since $Q$ is a symmetric matrix, we can write its spectral decomposition: 
+$Q = \sum_{j=1}^n \lambda_j \vec{v}_j \vec{v}_j^{\top}$, 
+wherein $\lambda_j \geq 0$ are the eigenvalues. Therefore, $p = \vec{x}^{\top} Q \vec{x}$ can be written as 
+$$p = \sum_{j=1}^n \lambda_j \vec{x}^t \vec{v}_j \vec{v}_j^{\top} \vec{x} = \sum_{j=1}^n (\sqrt{\lambda_j} \vec{v_j}^{\top} \vec{x})^2$$
+This shows that $p$ is SOS.
+
+:::
+
+## Hilbert's Seventeenth Problem
+
+__Hilbert's Seventeenth Problem:__ Can any positive semi-definite polynomial be written as a sum of squares of rational functions? 
+
+$$p = \sum_{j=1}^k \frac{\sigma_{j}^2}{\xi_j^2}$$
+
+- Artin and Schreier'1927: Theory of real-closed fields. 
+
+
+
+
+## Why SOS?
+
+- Checking if a polynomial is SOS can be made efficient.
+  - Reduction to semi-definite programming (convex optimization).
+
+- Positivstellensatz using Sum of Squares.
+  - Laserre's Hierarchy.
+  - Next lecture. 
+
+## Checking SOS
+
+__Input:__ $p \in \Re[x_1, \ldots, x_n]$.
+
+
+__Output:__ Is $p = \sigma_1^2 + \cdots + \sigma_k^2$ for some $\sigma_1, \ldots, \sigma_k \in \Re[x_1, \ldots, x_n]$.
+
+:::{.fragment}
+
+<font color="red">Idea:</font> quadratic forms but lift to a higher dimensional space.
+
+:::
