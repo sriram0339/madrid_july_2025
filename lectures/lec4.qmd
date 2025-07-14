@@ -245,7 +245,7 @@ Given polynomials $p_1, \ldots, p_m$ in $\Re[x_1, \ldots, x_n]$,
     $$\Re = (-\infty, a_1) \cup [a_1, a_1] \cup (a_1, a_2) \cup [a_2, a_2] \cup \cdots $$
 - For each point/interval, we recursively associate a ``stack of regions'' involving $x_1, \ldots, x_{n-1}$. 
 
-Cf. Manuel Kauers, How to use a Cylindrical Algebraic Decomposition.
+Cf. Manuel Kauers, How to use a Cylindrical Algebraic Decomposition, Seminaire Lotharingien de Combinatoire 65 (2011).
 
 ## CAD Figure   
 
