@@ -12,7 +12,7 @@ format:
     pdf-separate-fragments: true
     html-math-method:
         method: mathjax
-
+ 
 ---
 
 ## So far 

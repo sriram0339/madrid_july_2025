@@ -48,7 +48,7 @@ def div(x1, x2):
      (y2, y3) = (2 * y2, 2 * y3)
   while True: # Inv: y2 - y3 * x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0
      if y1 >= y2: 
-        (y1, y3) = (y1 - y2, y3 + y4)
+        (y1, y4) = (y1 - y2, y3 + y4)
      if y3 == 1: 
         return y4, y1 # Prove: x1 = y1 + x2 * y4
      (y2, y3) = (y2 / 2, y3 / 2) # y2, y3 are  even, before division
@@ -76,7 +76,7 @@ __Goal:__ Prove  `x1 = y1 + x2 * y4` holds upon termination.
 ```{.python}
 while True: # Invariants: y2 - y3 * x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0
     if y1 >= y2: 
-      (y1, y3) = (y1 - y2, y3 + y4)
+      (y1, y4) = (y1 - y2, y3 + y4)
     if y3 == 1: 
       return y4, y1 # Prove: x1 = y1 + x2 * y4
     (y2, y3) = (y2 / 2, y3 / 2) # y2, y3 are  even numbers before division
@@ -138,7 +138,7 @@ Abstracted Program:
 ```{.python}
 while True: # Invariants: y2 - y3*x2 == 0, y1*y3 + y2*y4 − y3*x1 == 0
     if * : # y1 >= y2 abstracted to nondeterministic choice
-      (y1, y3) = (y1 - y2, y3 + y4)
+      (y1, y4) = (y1 - y2, y3 + y4)
     if y3 == 1: 
       return y4, y1 # Prove: x1 = y1 + x2*y4
     (y2, y3) = (y2 / 2, y3 / 2) # Treat integer division as real division
