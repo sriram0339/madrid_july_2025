@@ -700,6 +700,92 @@ $$\begin{array}{c}
   
 :::
 
+## Lagrangian Reasoning for Inequalities
+
+$$ \begin{array}{rcll}
+2 x - 3 y + 4 z & \leq & 5 & \leftarrow e_1 \\ 
+3 x - 2 y + 0 z & \leq & 7 & \leftarrow e_2\\
+              z & \leq & 3 & \leftarrow e_3 \\    
+\hline 
+ & & (\Rightarrow) \\
+x - y + z & \leq & 3 
+\\
+\end{array}$$
+
+:::{.fragment}
+$$( x - y + z - 3) = \frac{1}{5} ( e_1 + e_2 + e_3 )$$
+:::
+
+## Lagrangian Reasoning (Continued)
+
+$$ \begin{array}{c}
+ e \leq 0,\ \lambda \geq 0\\ 
+ \hline 
+ \lambda \times e \leq 0 \\ 
+ \end{array}$$ 
+
+:::{.fragment}
+  $$ \begin{array}{c}
+ e_1 \leq 0,\ e_2 \leq 0\\ 
+ \hline 
+ e_1 + e_2 \leq 0 \\ 
+ \end{array}$$ 
+
+:::
+
+:::{.fragment}
+ $$ \begin{array}{c}
+ \\
+ \hline 
+ -1  \leq 0 \\
+ \end{array}$$ 
+
+
+:::
+
+## Conic Combination 
+
+Consider linear inequalities $$e_1 \leq 0, \ldots, e_m \leq 0$$
+
+Conic combination: 
+
+$$ -\lambda_0 + \lambda_1 e_1 + \cdots +  \lambda_m e_m \leq 0$$ 
+
+wherein $\lambda_i \geq 0$.
+
+## Farkas' Lemma 
+
+$$\varphi:\ e_1 \leq 0\ \land\ e_2 \leq 0\ \cdots\ \land\ e_m \leq 0$$
+
+
+:::{.fragment}
+ - $\varphi$ is unsatisfiable iff $1 \leq 0$ lies in conic combination.
+ - If $\varphi$ is satisfiable:  $\varphi \models e \leq 0$ iff we can derive $e \leq 0$ as a conic combination.
+ - Foundations of linear programming and duality theory. 
+   - Reference: V. Chvatal's amazing book on Linear Programming. 
+:::
+
+## Farkas' Lemma in Formal Methods
+
+- Vast literature on using Farkas' Lemma for 
+  - Invariant Synthesis: Colon + Sank. + Sipma' CAV 2003; Gulwani et al., Tiwari et al.,...
+  - Ranking Function Synthesis: Colon + Sipma, Podelski + Rybalchenko, Bradley + Manna, Cook + Rybalchenko + Podelski, ... 
+  - Cost analysis of programs
+  - Analysis of probabilistic programs
+  - Proof production in linear arithmetic SMT solver: [Reynolds+Tinelli] 
+
+## Beyond Farkas Lemma 
+
+Proving entailment with polynomials:
+
+$$p_1 \leq 0, \cdots, p_m \leq 0\ \models\ p \leq 0 $$ 
+
+_Positivstellensatz:_
+
+$$ p = -\sigma_0 + \sigma_1 p_1 + \cdots + \sigma_m p_m $$ 
+where $\sigma_i$ are _positive polynomials_.
+
+
 
 ## Next Time
 
