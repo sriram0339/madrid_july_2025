@@ -1,0 +1,432 @@
+---
+title: Algebraic and Semi-Algebraic Reasoning For Formal Methods
+subtitle: Lecture 5 -  Sum of Squares Programming.
+author: Sriram Sankaranarayanan
+# format:
+#   revealjs:
+#     theme: serif
+#     center: true
+#     transition: slide
+#     incremental: false
+#     slide-number: c/t
+#     pdf-separate-fragments: true
+#     html-math-method:
+#       method: mathjax
+format:
+  beamer: 
+    navigation: horizontal
+    theme: metropolis
+---
+
+
+
+## Sum of Squares (SOS)
+\renewcommand\Re{\mathbb{R}}
+A polynomial $p$ is _sum of squares_ (SOS) iff 
+$$ p = \sigma_1^2 + \ldots + \sigma_k^2$$
+for some $k \geq 0$.
+
+  - $\sigma_1, \ldots, \sigma_k \in \Re[x_1, \ldots, x_n]$.
+
+## Positive Polynomials vs. Sum-Of-Squares 
+
+If $p$ is SOS then $p$ is a positive semi-definite.
+  
+   - Is the converse true?
+
+- _Theorem \# 1_ Any univariate polynomial is positive semi-definite iff it is SOS. 
+
+- _Theorem \# 2_ Any quadratic polynomial is positive semi-definite iff it is SOS.
+
+_TODO:_ Prove these in lecture. 
+
+--- 
+
+There exists a polynomial that is positive semidefinite but cannot be written as a sum of squares.
+
+_Motzkin Polynomial:_ 
+
+$p = x^4y^2 + x^2y^4 + 1 - 3 x^2 y^2 \succeq 0$
+
+- Prove that $p$ is positive semi-definite.
+- Prove that $p$ cannot be expressed as SOS. 
+
+## Quadratic Forms and Sum of Squares
+
+Quadratic polynomial $p(x_1, \ldots, x_n)$ can be written: 
+
+$$\left(\begin{array}{c} 1\\ x_1 \\ x_2 \\ \cdots\\ x_n \end{array}\right)^{\top}\ \left(\begin{matrix}
+Q_{11} & Q_{12} & \cdots & Q_{1,n+1}\\ 
+Q_{21}& Q_{22} & \cdots & Q_{2, n+1}\\ 
+\vdots & & \ddots & \vdots \\ 
+Q_{n+1,1} & Q_{n+1,2} & \cdots & Q_{n+1, n+1}\\
+\end{matrix}\right) \left(\begin{array}{c}  1\\ x_1 \\ x_2 \\ \cdots\\ x_n \end{array}\right)$$
+
+## SOS and PSD for Quadratic Forms{.smaller}
+
+A quadratic form $p(\vec{x}) = \vec{x}^\top Q \vec{x}$ is positive semidefinite iff all eigenvalues of $Q$ are non-negative. 
+
+:::{.fragment}
+__Proof:__ Suppose $Q\vec{v} = \lambda \vec{v}$, $\lambda$ must be real and furthermore, $\vec{v}^{\top} Q \vec{v} = \lambda \vec{v}^{\top}\vec{v}$.  
+ 
+($\Rightarrow$)\ Let $p$ be a positive semi-definite polynomial, but $Q$ have a negative eigenvalue $\lambda < 0$. Then $p(\vec{v}) = \lambda \vec{v}^{\top}\vec{v} < 0$.
+This is a contradiction. 
+
+($\Leftarrow$) Suppose all eigen values of $Q$ are non-negative. Since $Q$ is a symmetric matrix, we can write its spectral decomposition: 
+$Q = \sum_{j=1}^n \lambda_j \vec{v}_j \vec{v}_j^{\top}$, 
+wherein $\lambda_j \geq 0$ are the eigenvalues. Therefore, $p = \vec{x}^{\top} Q \vec{x}$ can be written as 
+$$p = \sum_{j=1}^n \lambda_j \vec{x}^t \vec{v}_j \vec{v}_j^{\top} \vec{x} = \sum_{j=1}^n (\sqrt{\lambda_j} \vec{v_j}^{\top} \vec{x})^2$$
+This shows that $p$ is SOS.
+
+:::
+
+## Hilbert's Seventeenth Problem
+
+__Hilbert's Seventeenth Problem:__ Can any positive semi-definite polynomial be written as a sum of squares of rational functions? 
+
+$$p = \sum_{j=1}^k \frac{\sigma_{j}^2}{\xi_j^2}$$
+
+- Artin and Schreier'1927: Theory of real-closed fields. 
+
+
+
+
+## Why SOS?
+
+- Checking if a polynomial is SOS can be made efficient.
+  - Reduction to semi-definite programming (convex optimization).
+
+- Positivstellensatz using Sum of Squares.
+  - Lasserre Hierarchy.
+
+## Checking SOS
+
+__Input:__ $p \in \Re[x_1, \ldots, x_n]$.
+
+
+__Output:__ Is $p = \sigma_1^2 + \cdots + \sigma_k^2$ for  $\sigma_1, \ldots, \sigma_k \in \Re[x_1, \ldots, x_n]$?
+
+:::{.fragment style="font-size:0.75em"}
+
+<font color="red">Idea:</font> quadratic forms but lift to a higher dimensional space.
+
+- Originally proposed by N. Shor, 1987 (In Russian).
+- Rediscovered by Lasserre'2001 and Parrilo'2003.
+  - Global Optimization with Polynomials and the Problem of Moments, Jean B. Lasserre, SIAM J. Opt., 2001.
+  - Semidefinite programming relaxations for semialgebraic problems, Pablo Parrilo,  Math. Prog. Ser. B, 2003.
+
+:::
+
+## Checking Sum of Squares : Idea
+
+__Idea__ Write a non-quadratic polynomial as a quadratic form.
+
+__Example__ $x^4 y^2 - 2 x^2 y^2 + 2 y^2 - 2 xy + x^2 + 9$
+
+Let $\mu(x, y) = \left( \begin{matrix}
+x^2 y \\
+xy \\
+x\\
+y \\
+1\\
+\end{matrix}\right)$, Write $p = \mu^{\top} Q \mu$.
+
+## Example (Continued)
+
+$p = x^4 y^2 - 2 x^2 y^2 + 2 y^2 - 2 xy + x^2 + 9$
+
+$$\begin{array}{l|c c c c c}
+ & x^2 y & xy & x & y & 1 \\ 
+ \hline 
+x^2y & 1 & 0 & 0 & -1 & 0 \\ 
+xy & 0 & 0 &  0 & 0 & 0  \\ 
+x &  0 & 0 & 1 & -1 & 0 \\ 
+y &  -1 & 0 & -1 & 2 & 0 \\ 
+1 & 0 & 0 & 0 & 0 & 9\\ 
+\end{array}$$
+
+__Problem:__ $Q$ is not unique.
+
+## Example: Non-Uniqueness
+
+$p = x^4 y^2 - 2 x^2 y^2 + 2 y^2 - 2 xy + x^2 + 9$
+
+$$\begin{array}{l|c c c c c}
+ & x^2 y & xy & x & y & 1 \\ 
+ \hline 
+x^2y & 1 & 0 & 0 & 0 & 0 \\ 
+xy & 0 & -2 &  0 & 0 & 0  \\ 
+x &  0 & 0 & 1 & -1 & 0 \\ 
+y &  0 & 0 & -1 & 2 & 0 \\ 
+1 & 0 & 0 & 0 & 0 & 9\\ 
+\end{array}$$
+
+$Q$ is not a psd matrix.
+
+## Basic Idea.
+
+- Fix a vector of monomials $\mu(x_1, \ldots, x_n)$.
+
+- Try to write polynomial $p$ as
+   - $p = \mu^\top Q \mu$ 
+   - $Q$ is a positive semidefinite matrix.
+
+- However, there are infinitely many ways of doing so.
+  - We need to discover one way to do it!
+
+## Constraint Problem
+
+Let $p = \sum_{\alpha \in \mathbb{N}^n} c_{\alpha} \vec{x}^{\alpha}$.
+
+- $M(p):$ set of monomials in $p$.
+- Choose a monomial basis $\mu(\vec{x}) = [\beta_1, \ldots, \beta_k]$.
+  - Every $\alpha \in M(p)$ can be written as the sum of two monomials in the basis.
+- Let $Q$ be an unknown _positive semi-definite matrix_ that we seek.
+- _Question:_ What are the constraints on $Q$?
+
+## Constraint Problem (continued)
+
+For every monomial $\alpha \in M(p)$, let 
+  $$C(\alpha) = \{ (i, j)\ |\ \beta_i + \beta_j = \alpha  \}$$
+
+Each monomial imposes a constraint on the entries of $Q$:
+ $$\sum_{(i,j) \in C(\alpha)} Q_{i,j} = c_{\alpha}$$
+   - Linear equality involving entries of $Q$.
+
+## Constraint Problem (continued)
+
+$$\begin{array}{rcl }
+\mathsf{find} & Q  \in \Re^{|\mu| \times |\mu|} \\ 
+\mathsf{s.t.} &  \\
+    & \vdots \\  
+    & \left( C_{\alpha}, Q \right) = c_{\alpha}  &  \leftarrow\ \text{linear equations over entries of }\ Q \\ 
+    & \vdots \\
+    & Q \succeq 0 & \leftarrow\ \text{PSD constraint}\\
+\end{array}$$
+
+:::{.fragment}
+ This is called a semi-definite programming problem (SDP).
+:::
+
+## Semi-Definite Programming 
+
+- Trace inner product:
+  - $(A, B) = \mathsf{tr}(A \times B) = \sum_{i} \sum_{j} A_{i,j} B_{i,j}$.
+
+SDP Problem: Decision Variable $X \in \Re^{n \times n}$.
+
+$$\begin{array}{rl}
+\min &  \left(C, X\right) \\ 
+     &  \left(A_1, X\right) = b_1 \\ 
+     &  \vdots \\
+     &  \left(A_m, X\right) = b_m \\ 
+     & X \succeq 0 \\ 
+\end{array}$$
+
+## Semi-Definite Programming 
+
+Semidefinite Programming, S. Boyd and L. Vandenberghe, SIAM REVIEW Vol. 38, No. 1, pp. 49-95, March 1996.
+
+  - Lots of applications of SDPs,
+    - Engineering design problems 
+    - Data Analysis Problems
+    - Approximation Algorithms
+  - Properties of SDPs,  
+  - Techniques for Efficient Solution. 
+
+## Semi-Definite Programming: Primal vs. Dual Forms
+
+::::{.columns}
+
+:::{.column width="50%"}
+$$\begin{array}{rl}
+\min &  \left(C, X\right) \\ 
+\mathsf{s.t.} &  \left(A_1, X\right) = b_1 \\ 
+     &  \vdots \\
+     &  \left(A_m, X\right) = b_m \\ 
+     & X \succeq 0 \\ 
+\end{array}$$
+:::
+
+
+:::{.column width="50%" }
+$$\begin{array}{rl}
+\min & \sum_{j=1}^m b_j x_j \\ 
+\mathsf{s.t.} & 
+C + \sum_{j=1}^m x_i A_i \ \succeq\ 0 \\  
+\end{array}$$
+:::
+
+::::
+
+__Note:__ both forms are interchangable.
+
+## SDP : Solution 
+
+
+::::{.columns}
+
+:::{.column width="30%"}
+$$\begin{array}{rc}
+\min &  \left(C, X\right) \\ 
+\mathsf{s.t.} &  \left(A_1, X\right) = b_1 \\ 
+     &  \vdots \\
+     &  \left(A_m, X\right) = b_m \\ 
+     & X \succeq 0 \\ 
+\end{array}$$
+:::
+
+:::{.column width="15%" }
+:::
+
+:::{.column width="55%" }
+ - Infeasible
+ - Unbounded
+ - Feasible and Optimal 
+   - Symmetric PSD matrix $X$.
+   - $X$ satisfies the constraints.
+   - Minimizes the objective. 
+:::
+
+::::
+
+## Solving SDPs 
+
+- Interior point methods. 
+
+- Basic Idea:  Use a barrier function.
+
+- __TODO__ Illustrate what barrier functions are and how interior point methods work.
+
+## Solving SDPs: Convergence
+
+- Requires strict feasibility.
+  - There exists a solution $X \succ 0$ satisfying constraints. 
+
+- Guaranteed to get a solution that is within $\epsilon > 0$ distance of optimal solution.
+  - Time complexity in problem size and $\log(\frac{1}{\epsilon})$.
+  - Arithmetic operations are typically $O(1)$.
+
+## SDP Numerics
+
+SDPs are typically solved using floating point arithmetic.
+
+  - Some extended precision solvers such as SDPA.
+
+Optimal solution need not be rational. 
+
+$$\begin{array}{rl}
+\max  & X_{1,2}\\ 
+\mathsf{s.t.} & X_{1,1} = 1 \\ 
+& X_{2,2} = 2 \\ 
+& X \succeq 0 \\
+\end{array}$$
+
+- Optimal solution is $\sqrt{2}$.
+
+## SDP Numerics (continued)
+
+- SDP solution verification.
+  - Check that matrix $X$ is a PSD.
+    - Can use Cholesky decomposition. 
+  - Check that the equality constraints are satisfied.
+
+Cf. Roux, Voronin and Sank. Validating Numerical Semidefinite Programming Solvers for Polynomial Invariants, SAS 2016 and STTT 2018.
+
+## Sum of Squares Checking 
+
+Given $p \in \Re[x_1, \ldots, x_n]$, how do we find the monomials needed for $\mu$?
+
+ - Hint: consider maximum degree in each variable.
+
+:::{.fragment}
+
+__Newton Polytope:__  Consider $p = \sum_{\alpha \in \mathbb{N}^n} c_{\alpha} \vec{x}^{\alpha}$.
+
+ - Collect all monomials as vectors $\alpha \in \mathbb{N}^n$ such that $c_{\alpha} \not= 0$.
+ - Compute the convex hull $P$ of the vectors in $\mathbb{N}^n$ corresponding to the monomials.
+ - Compute all the points in $\frac{1}{2} P$.
+ - Any monomial $\vec{x}^\beta$ appears in the SOS decomposition of $p$ iff $\beta \in \frac{1}{2}P$.
+
+:::
+
+## Proving Entailments
+
+  $$ (\forall x, y \in \mathbb{R}) \quad x^2 + y^2 \leq 1  \ \land\ x + y \leq 0 \ \Rightarrow\  y \leq 1.423  $$
+
+Why?
+
+$$(1.423 - y) = \left( \begin{array}{c} 0.765134 \ \  (1-x^2-y^2)\ + \\ 
+0.4 \ \   -(x+y)\ + \\ 
+0.6574 - 0.6 x + 0.4 y + 0.765134 (x^2 + y^2)\\
+\end{array} \right)
+$$
+
+
+
+## Positivstellensatz 
+
+Consider entailment over $\Re^n$:
+
+$$p_1 \geq 0 \ \land\ \cdots \ \land\ p_m \geq  0\ \models\ p \geq 0$$
+
+- One approach is to try to convert to real Nullstellensatz.
+
+## Inequalities to Equalities
+
+Consider polynomials over $p \in \Re[x_1, \ldots, x_n]$.
+ 
+ - Let $t$ be a fresh variable.
+
+ - $p \geq 0 \ \Leftrightarrow\ p = t^2$
+ - $p > 0\ \Leftrightarrow\ t^2 p = 1$
+ - $p \not= 0 \ \Leftrightarrow\ t p = 1$
+
+Convert entailment back to equalities.
+
+## Real Varieties
+
+Given $p_1, \ldots, p_m \in \Re[x_1, \ldots, x_n]$, define the _real variety_ as 
+
+$$V = \{ \vec{x} \in \Re^n\ |\ \bigwedge_{j=1}^m p_j = 0 \}$$
+
+- We already saw the importance of algebraic closure.
+  - Real variety of $1 + x^2 = 0$.
+
+__Theorem__ $V=\emptyset$ if and only if $1 + \sigma \in \langle p_1, \ldots, p_m \rangle$, where $\sigma$ is SOS. 
+
+## Positivestellensatz 
+
+Let $S = \{ \vec{x} \in \Re^n\ |\ p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \}$.
+
+ - We wish to show that $p \geq 0$ on $S$ for given $p$.
+
+ - __Important:__ We will need $S$ to be compact.
+
+## Schmugden's Positivstellensatz
+
+Enrich the set of polynomials
+
+$$ Q(S) = \{ p_1^{e_1} \cdots p_m^{e_m}\ |\ e_i \in \{0, 1\} \} $$ 
+
+__Note:__ $|Q(S)| = 2^m$.
+
+__Theorem (Schmugden'1991)__  
+
+  - If $p = \sum_{q \in Q(S)} \sigma_q q$ for SOS polynomials $\sigma_q$ then $p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \models p \geq 0$.
+  - Conversely, if $p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \models p > 0$ then $p$ can be written as a SOS-combination of polynomials in $Q(S)$.
+
+
+## Putinar's Positivstellensatz 
+
+Let $M = \{ \sum_{j=1}^m \sigma_j p_j + \sigma_0\ |\ \sigma_0, \ldots, \sigma_m\ \text{SOS} \}$.
+
+- __Archimedean Property:__ There exists a $K$ such that 
+$$ x_1^2 + \cdots + x_n^2 \leq K $$ 
+
+
+__Theorem (Putinar'1993)__ 
+  
+   - If $p \in M$ then $p_1 \geq 0\ \land\ \cdots \land\ p_m \geq 0 \ \models\ p \geq 0$.
+   - If $S$ compact and $M$ is Archimedean, then $p_1 \geq 0\ \land\ \cdots\ \land\ p_m \geq 0 \models p > 0$ then $p \in M$.
+
