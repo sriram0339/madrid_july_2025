@@ -82,11 +82,15 @@ This shows that $p$ is SOS.
 
 ## Hilbert's Seventeenth Problem
 
-__Hilbert's Seventeenth Problem:__ Can any positive semi-definite polynomial be written as a sum of squares of rational functions? 
+__Hilbert's Seventeenth Problem:__ Can any positive semi-definite polynomial be written 
+as a sum of squares of rational functions: 
+$p = \sum_{j=1}^k \frac{\sigma_{j}^2}{\xi_j^2}$?
 
-$$p = \sum_{j=1}^k \frac{\sigma_{j}^2}{\xi_j^2}$$
+ - Hilbert showed in 1888 that not all PSD polynomials are SOS.
+    - His proof did not construct an explicit counterexample.
+    - Cf. Bruce Reznick, Some Concrete Aspects of the Hilbert's 17th Problem. 
 
-- Artin and Schreier'1927: Theory of real-closed fields. 
+ - Artin and Schreier'1927: Theory of real-closed fields. 
 
 
 
@@ -413,8 +417,9 @@ __Note:__ $|Q(S)| = 2^m$.
 
 __Theorem (Schmugden'1991)__  
 
-  - If $p = \sum_{q \in Q(S)} \sigma_q q$ for SOS polynomials $\sigma_q$ then $p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \models p \geq 0$.
-  - Conversely, if $p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \models p > 0$ then $p$ can be written as a SOS-combination of polynomials in $Q(S)$.
+  - If $p = \sum_{q \in Q(S)} \sigma_q q$ for $\sigma_q$  SOS then $p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \models p \geq 0$.
+  - Conversely, if $p_1(\vec{x}) \geq 0\ \land\ \cdots\ \land\ p_m(\vec{x}) \geq 0 \models p > 0$  
+  then $p = \sum_{q \in Q(S)} \sigma_q q$ for $\sigma_q$  SOS.
 
 
 ## Putinar's Positivstellensatz 
@@ -422,7 +427,9 @@ __Theorem (Schmugden'1991)__
 Let $M = \{ \sum_{j=1}^m \sigma_j p_j + \sigma_0\ |\ \sigma_0, \ldots, \sigma_m\ \text{SOS} \}$.
 
 - __Archimedean Property:__ There exists a $K$ such that 
-$$ x_1^2 + \cdots + x_n^2 \leq K $$ 
+$$ K - (x_1^2 + \cdots + x_n^2)  \in M $$ 
+
+ - If time permits, explain connection to Archimedes.
 
 
 __Theorem (Putinar'1993)__ 
@@ -430,3 +437,42 @@ __Theorem (Putinar'1993)__
    - If $p \in M$ then $p_1 \geq 0\ \land\ \cdots \land\ p_m \geq 0 \ \models\ p \geq 0$.
    - If $S$ compact and $M$ is Archimedean, then $p_1 \geq 0\ \land\ \cdots\ \land\ p_m \geq 0 \models p > 0$ then $p \in M$.
 
+## Positivstellensatz to Semi-Definite Programming
+
+__Problem:__ prove the following entailment.
+  
+  $$p_1 \geq 0\ \land\ \cdots\ \land\ p_m \geq 0\ \models\ p \geq 0 $$ 
+
+__Strategy:__ Find, $\sigma_0, \ldots, \sigma_m$ such that 
+
+$$p = \sigma_0 + \sum_{j=1}^m \sigma_j p_j,\ \text{and}\ \sigma_j\ \mathsf{SOS}$$
+
+  - Bound the degrees of $\sigma_0, \ldots, \sigma_m \in \Re_{2d}[\vec{x}]$.
+
+## Reduction to SDP
+
+ - Fix a basis of monomials $\mu(\vec{x})$.
+ - $\sigma_i = \mu^t X_i \mu$
+ - $p = \sigma_0 + \sum_{j=1}^m \sigma_j p_j$
+   - Equate monomials on LHS and RHS.
+   - $\sum_{j=0}^m (P_{i,j}, X_j) = c_{i}$ 
+ - Place $X_1, \ldots, X_n$ in a block diagonal form.
+
+    $$ X = \left[ \begin{array}{cccc}
+    X_1 & 0 & \cdots & 0 \\ 
+    0 & X_2 & \cdots & 0 \\ 
+    \vdots & \vdots & \ddots & 0 \\ 
+    0 & 0 & \cdots & X_n \\
+  \end{array}\right]$$
+
+## Next Lecture
+
+  - Demonstrate using Sum Of Squares Programming in JuMP.
+  - Connections to combinatorial optimization.
+  - Applications:
+    - Barriers for differential equations.
+  - Discussion of Open Challenges.
+    - Proofs and Floating Point Numbers.
+    - Dealing with non-polynomial functions.
+
+  
